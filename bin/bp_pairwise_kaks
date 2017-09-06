@@ -1,11 +1,12 @@
 #!perl
 use strict;
 use warnings;
-# Author Jason Stajich <jason-at-bioperl-dot-org>
 
-=head1 NAME
-
-bp_pairwise_kaks - script to calculate pairwise Ka,Ks for a set of sequences
+# PODNAME: bp_pairwise_kaks
+# ABSTRACT: calculate pairwise Ka,Ks for a set of sequences
+# AUTHOR: Jason Stajich <jason@bioperl.org>
+# OWNER: Jason Stajich <jason@bioperl.org>
+# LICENSE: Perl_5
 
 =head1 SYNOPSIS
 
@@ -27,29 +28,6 @@ bp_pairwise_kaks.PLS -i t/data/worm_fam_2785.cdna [-f fasta/genbank/embl...] [-m
  Often there are specific specific parameters you want to run when you
  a computing Ka/Ks ratios so consider this script a starting point and
  do not rely it on for every situation.
-
-=head1 FEEDBACK
-
-=head2 Mailing Lists
-
-User feedback is an integral part of the evolution of this and other
-Bioperl modules. Send your comments and suggestions preferably to
-the Bioperl mailing list.  Your participation is much appreciated.
-
-  bioperl-l@bioperl.org                  - General discussion
-  http://bioperl.org/wiki/Mailing_lists  - About the mailing lists
-
-=head2 Reporting Bugs
-
-Report bugs to the Bioperl bug tracking system to help us keep track
-of the bugs and their resolution. Bug reports can be submitted via the
-web:
-
-  https://github.com/bioperl/bioperl-live/issues
-
-=head1 AUTHOR
-
- Jason Stajich jason-at-bioperl-dot-org
 
 =cut
 

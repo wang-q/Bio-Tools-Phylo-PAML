@@ -1,19 +1,7 @@
-#
-# BioPerl module for Bio::Tools::Phylo::PAML::ModelResult
-#
-# Please direct questions and support issues to <bioperl-l@bioperl.org> 
-#
-# Cared for by Jason Stajich <jason@open-bio.org>
-#
-# Copyright Jason Stajich
-#
-# You may distribute this module under the same terms as perl itself
-
-# POD documentation - main docs before the code
-
-=head1 NAME
-
-Bio::Tools::Phylo::PAML::ModelResult - A container for NSSite Model Result from PAML 
+# ABSTRACT: A container for NSSite Model Result from PAML
+# AUTHOR: Jason Stajich <jason@bioperl.org>
+# OWNER: Jason Stajich <jason@bioperl.org>
+# LICENSE: Perl_5
 
 =head1 SYNOPSIS
 
@@ -40,54 +28,7 @@ Bio::Tools::Phylo::PAML::ModelResult - A container for NSSite Model Result from 
 
   }
 
-=head1 DESCRIPTION
-
-Describe the object here
-
-=head1 FEEDBACK
-
-=head2 Mailing Lists
-
-User feedback is an integral part of the evolution of this and other
-Bioperl modules. Send your comments and suggestions preferably to
-the Bioperl mailing list.  Your participation is much appreciated.
-
-  bioperl-l@bioperl.org                  - General discussion
-  http://bioperl.org/wiki/Mailing_lists  - About the mailing lists
-
-=head2 Support 
-
-Please direct usage questions or support issues to the mailing list:
-
-I<bioperl-l@bioperl.org>
-
-rather than to the module maintainer directly. Many experienced and 
-reponsive experts will be able look at the problem and quickly 
-address it. Please include a thorough description of the problem 
-with code and data examples if at all possible.
-
-=head2 Reporting Bugs
-
-Report bugs to the Bioperl bug tracking system to help us keep track
-of the bugs and their resolution. Bug reports can be submitted via
-email or the web:
-
-  https://github.com/bioperl/bioperl-live/issues
-
-=head1 AUTHOR - Jason Stajich
-
-Email jason@open-bio.org
-
-=head1 APPENDIX
-
-The rest of the documentation details each of the object methods.
-Internal methods are usually preceded with a _
-
 =cut
-
-
-# Let the code begin...
-
 
 package Bio::Tools::Phylo::PAML::ModelResult;
 use strict;
@@ -97,7 +38,7 @@ use strict;
 
 use base qw(Bio::Root::Root);
 
-=head2 new
+=method new
 
  Title   : new
  Usage   : my $obj = Bio::Tools::Phylo::PAML::ModelResult->new();
@@ -229,7 +170,7 @@ sub new {
 }
 
 
-=head2 model_num
+=method model_num
 
  Title   : model_num
  Usage   : $obj->model_num($newval)
@@ -246,7 +187,7 @@ sub model_num {
     return $self->{'_num'};
 }
 
-=head2 model_description
+=method model_description
 
  Title   : model_description
  Usage   : $obj->model_description($newval)
@@ -264,7 +205,7 @@ sub model_description{
     return $self->{'_model_description'};
 }
 
-=head2 time_used
+=method time_used
 
  Title   : time_used
  Usage   : $obj->time_used($newval)
@@ -281,7 +222,7 @@ sub time_used{
     return $self->{'_time_used'};
 }
 
-=head2 kappa
+=method kappa
 
  Title   : kappa
  Usage   : $obj->kappa($newval)
@@ -298,7 +239,7 @@ sub kappa{
     return $self->{'_kappa'};
 }
 
-=head2 num_site_classes
+=method num_site_classes
 
  Title   : num_site_classes
  Usage   : $obj->num_site_classes($newval)
@@ -315,7 +256,7 @@ sub num_site_classes{
     return $self->{'_num_site_classes'};
 }
 
-=head2 dnds_site_classes
+=method dnds_site_classes
 
  Title   : dnds_site_classes
  Usage   : $obj->dnds_site_classes($newval)
@@ -334,7 +275,7 @@ sub dnds_site_classes{
     return $self->{'_dnds_site_classes'};
 }
 
-=head2 get_pos_selected_sites
+=method get_pos_selected_sites
 
  Title   : get_pos_selected_sites
  Usage   : my @sites = $modelresult->get_pos_selected_sites();
@@ -355,7 +296,7 @@ sub get_pos_selected_sites{
    return @{$_[0]->{'_posselsites'} || []};
 }
 
-=head2 add_pos_selected_site
+=method add_pos_selected_site
 
  Title   : add_pos_selected_site
  Usage   : $result->add_pos_selected_site($site,$aa,$pvalue,$signif);
@@ -374,7 +315,7 @@ sub add_pos_selected_site{
    return scalar @{$self->{'_posselsites'}};
 }
 
-=head2 get_NEB_pos_selected_sites
+=method get_NEB_pos_selected_sites
 
  Title   : get_NEB_pos_selected_sites
  Usage   : my @sites = $modelresult->get_NEB_pos_selected_sites();
@@ -396,7 +337,7 @@ sub get_NEB_pos_selected_sites{
    return @{$_[0]->{'_NEBposselsites'} || []};
 }
 
-=head2 add_NEB_pos_selected_site
+=method add_NEB_pos_selected_site
 
  Title   : add_NEB_pos_selected_site
  Usage   : $result->add_NEB_pos_selected_site($site,$aa,$pvalue,$signif);
@@ -418,7 +359,7 @@ sub add_NEB_pos_selected_site{
 
 
 
-=head2 get_BEB_pos_selected_sites
+=method get_BEB_pos_selected_sites
 
  Title   : get_BEB_pos_selected_sites
  Usage   : my @sites = $modelresult->get_BEB_pos_selected_sites();
@@ -440,7 +381,7 @@ sub get_BEB_pos_selected_sites{
    return @{$_[0]->{'_BEBposselsites'} || []};
 }
 
-=head2 add_BEB_pos_selected_site
+=method add_BEB_pos_selected_site
 
  Title   : add_BEB_pos_selected_site
  Usage   : $result->add_BEB_pos_selected_site($site,$aa,$pvalue,$signif);
@@ -461,7 +402,7 @@ sub add_BEB_pos_selected_site{
    return scalar @{$self->{'_BEBposselsites'}};
 }
 
-=head2 next_tree
+=method next_tree
 
  Title   : next_tree
  Usage   : my $tree = $factory->next_tree;
@@ -476,7 +417,7 @@ sub next_tree{
    return $self->{'_trees'}->[$self->{'_treeiterator'}++] || undef;
 }
 
-=head2 get_trees
+=method get_trees
 
  Title   : get_trees
  Usage   : my @trees = $result->get_trees;
@@ -492,7 +433,7 @@ sub get_trees{
    return @{$self->{'_trees'} || []};
 }
 
-=head2 rewind_tree_iterator
+=method rewind_tree_iterator
 
  Title   : rewind_tree_iterator
  Usage   : $result->rewind_tree_iterator()
@@ -507,7 +448,7 @@ sub rewind_tree_iterator {
     shift->{'_treeiterator'} = 0;
 }
 
-=head2 add_tree
+=method add_tree
 
  Title   : add_tree
  Usage   : $result->add_tree($tree);
@@ -525,7 +466,7 @@ sub add_tree{
    return scalar @{$self->{'_trees'}};
 }
 
-=head2 shape_params
+=method shape_params
 
  Title   : shape_params
  Usage   : $obj->shape_params($newval)
@@ -544,7 +485,7 @@ sub shape_params{
     return $self->{'_shape_params'};
 }
 
-=head2 likelihood
+=method likelihood
 
  Title   : likelihood
  Usage   : $obj->likelihood($newval)

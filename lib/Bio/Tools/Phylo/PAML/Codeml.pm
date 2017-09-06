@@ -1,17 +1,9 @@
-#
-# BioPerl module for Bio::Tools::Phylo::PAML::Codeml
-#
-# Cared for by Jason Stajich <jason@bioperl.org>
-#
-# Copyright Jason Stajich, Aaron J Mackey
-#
-# You may distribute this module under the same terms as perl itself
-
-# POD documentation - main docs before the code
-
-=head1 NAME
-
-Bio::Tools::Phylo::PAML::Codeml - Parses output from the PAML program codeml. 
+# ABSTRACT: Parses output from the PAML program codeml
+# AUTHOR: Jason Stajich <jason@bioperl.org>
+# AUTHOR: Aaron Mackey <amackey@virginia.edu>
+# OWNER: Jason Stajich <jason@bioperl.org>
+# OWNER: Aaron Mackey <amackey@virginia.edu>
+# LICENSE: Perl_5
 
 =head1 SYNOPSIS
 
@@ -114,46 +106,12 @@ This module is used to parse the output from the PAML program codeml.
 You can use the Bio::Tools::Run::Phylo::Phylo::PAML::Codeml module to
 actually run codeml; this module is only useful to parse the output.
 
-=head1 FEEDBACK
-
-=head2 Mailing Lists
-
-User feedback is an integral part of the evolution of this and other
-Bioperl modules. Send your comments and suggestions preferably to
-the Bioperl mailing list.  Your participation is much appreciated.
-
-  bioperl-l@bioperl.org              - General discussion
-  http://bioperl.org/MailList.shtml  - About the mailing lists
-
-=head2 Reporting Bugs
-
-Report bugs to the Bioperl bug tracking system to help us keep track
-of the bugs and their resolution. Bug reports can be submitted via
-email or the web:
-
-  bioperl-bugs@bioperl.org
-  http://bioperl.org/bioperl-bugs/
-
-=head1 AUTHOR - Jason Stajich, Aaron Mackey
-
-Email jason@bioperl.org
-Email amackey@virginia.edu
-
 =head1 TODO
 
 This module should also be able to handle "codemlsites" batch
 output...
 
-=head1 APPENDIX
-
-The rest of the documentation details each of the object methods.
-Internal methods are usually preceded with a _
-
 =cut
-
-
-# Let the code begin...
-
 
 package Bio::Tools::Phylo::PAML::Codeml;
 use vars qw(@ISA);
@@ -168,7 +126,7 @@ use IO::String;
 
 @ISA = qw(Bio::Root::Root Bio::Root::IO );
 
-=head2 new
+=method new
 
  Title   : new
  Usage   : my $obj = new Bio::Tools::Phylo::PAML::Codeml();
@@ -188,7 +146,7 @@ sub new {
   return $self;
 }
 
-=head2 get_trees
+=method get_trees
 
  Title   : get_trees
  Usage   : my @trees = $codemlparser->get_trees();
@@ -205,7 +163,7 @@ sub get_trees{
 
 }
 
-=head2 get_statistics
+=method get_statistics
 
  Title   : get_statistics
  Usage   : my $data = $codemlparser->get_statistics

@@ -1,20 +1,13 @@
-#
-# BioPerl module for Bio::Tools::Phylo::PAML
-#
-# Please direct questions and support issues to <bioperl-l@bioperl.org>
-#
-# Cared for by Jason Stajich <jason-at-bioperl.org>
-#
-# Copyright Jason Stajich, Aaron J Mackey
-#
-# You may distribute this module under the same terms as perl itself
+# ABSTRACT: Parses output from the PAML programs codeml, baseml, basemlg, codemlsites and yn00
+# AUTHOR: Jason Stajich <jason@bioperl.org>
+# AUTHOR: Aaron Mackey <amackey@virginia.edu>
+# OWNER: Jason Stajich <jason@bioperl.org>
+# OWNER: Aaron Mackey <amackey@virginia.edu>
+# LICENSE: Perl_5
 
-# POD documentation - main docs before the code
-
-=head1 NAME
-
-Bio::Tools::Phylo::PAML - Parses output from the PAML programs codeml,
-baseml, basemlg, codemlsites and yn00
+# AUTHOR: Albert Vilella <avilella@gmail.com>
+# AUTHOR: Sendu Bala <bix@sendu.me.uk>
+# AUTHOR: Dave Messina <dmessina@cpan.org>
 
 =head1 SYNOPSIS
 
@@ -138,61 +131,13 @@ position; probabilities correspond to classes w0, w1, ... etc.
     }
   } else { print "No positive selection found!\n"; }
 
-=head1 FEEDBACK
-
-=head2 Mailing Lists
-
-User feedback is an integral part of the evolution of this and other
-Bioperl modules. Send your comments and suggestions preferably to
-the Bioperl mailing list.  Your participation is much appreciated.
-
-  bioperl-l@bioperl.org                  - General discussion
-  http://bioperl.org/wiki/Mailing_lists  - About the mailing lists
-
-=head2 Support
-
-Please direct usage questions or support issues to the mailing list:
-
-I<bioperl-l@bioperl.org>
-
-rather than to the module maintainer directly. Many experienced and
-reponsive experts will be able look at the problem and quickly
-address it. Please include a thorough description of the problem
-with code and data examples if at all possible.
-
-=head2 Reporting Bugs
-
-Report bugs to the Bioperl bug tracking system to help us keep track
-of the bugs and their resolution. Bug reports can be submitted via the
-web:
-
-  https://github.com/bioperl/bioperl-live/issues
-
-=head1 AUTHOR - Jason Stajich, Aaron Mackey
-
-Email jason-at-bioperl.org
-Email amackey-at-virginia.edu
-
-=head1 CONTRIBUTORS
-
-Albert Vilella avilella-AT-gmail-DOT-com
-Sendu Bala     bix@sendu.me.uk
-Dave Messina   dmessina@cpan.org
-
 =head1 TODO
 
 RST parsing -- done, Avilella contributions bug#1506, added by jason 1.29
             -- still need to parse in joint probability and non-syn changes
                at site table
 
-=head1 APPENDIX
-
-The rest of the documentation details each of the object methods.
-Internal methods are usually preceded with a _
-
 =cut
-
-# Let the code begin...
 
 package Bio::Tools::Phylo::PAML;
 use vars qw($RSTFILENAME);
@@ -216,7 +161,7 @@ use Bio::PrimarySeq;
 use Bio::Matrix::PhylipDist;
 use Bio::Tools::Phylo::PAML::ModelResult;
 
-=head2 new
+=method new
 
  Title   : new
  Usage   : my $obj = Bio::Tools::Phylo::PAML->new(%args);
@@ -242,11 +187,11 @@ sub new {
     return $self;
 }
 
-=head2 Implement Bio::AnalysisParserI interface
+=method Implement Bio::AnalysisParserI interface
 
 =cut
 
-=head2 next_result
+=method next_result
 
  Title   : next_result
  Usage   : $result = $obj->next_result();

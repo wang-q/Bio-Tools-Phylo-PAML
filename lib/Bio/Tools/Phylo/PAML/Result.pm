@@ -1,19 +1,11 @@
-#
-# BioPerl module for Bio::Tools::Phylo::PAML::Result
-#
-# Please direct questions and support issues to <bioperl-l@bioperl.org> 
-#
-# Cared for by Jason Stajich <jason-at-bioperl.org>
-#
-# Copyright Jason Stajich, Aaron Mackey
-#
-# You may distribute this module under the same terms as perl itself
+# ABSTRACT: A PAML result set object
+# AUTHOR: Jason Stajich <jason@bioperl.org>
+# AUTHOR: Aaron Mackey <amackey@virginia.edu>
+# OWNER: Jason Stajich <jason@bioperl.org>
+# OWNER: Aaron Mackey <amackey@virginia.edu>
+# LICENSE: Perl_5
 
-# POD documentation - main docs before the code
-
-=head1 NAME
-
-Bio::Tools::Phylo::PAML::Result - A PAML result set object
+# AUTHOR: Albert Vilella <avilella@gmail.com>
 
 =head1 SYNOPSIS
 
@@ -89,54 +81,7 @@ Bio::Tools::Phylo::PAML::Result - A PAML result set object
 
 This is a container object for PAML Results.
 
-=head1 FEEDBACK
-
-=head2 Mailing Lists
-
-User feedback is an integral part of the evolution of this and other
-Bioperl modules. Send your comments and suggestions preferably to
-the Bioperl mailing list.  Your participation is much appreciated.
-
-  bioperl-l@bioperl.org                  - General discussion
-  http://bioperl.org/wiki/Mailing_lists  - About the mailing lists
-
-=head2 Support 
-
-Please direct usage questions or support issues to the mailing list:
-
-I<bioperl-l@bioperl.org>
-
-rather than to the module maintainer directly. Many experienced and 
-reponsive experts will be able look at the problem and quickly 
-address it. Please include a thorough description of the problem 
-with code and data examples if at all possible.
-
-=head2 Reporting Bugs
-
-Report bugs to the Bioperl bug tracking system to help us keep track
-of the bugs and their resolution. Bug reports can be submitted via
-email or the web:
-
-  https://github.com/bioperl/bioperl-live/issues
-
-=head1 AUTHOR - Jason Stajich, Aaron Mackey
-
- Email jason-at-bioperl-dot-org
- Email amackey-at-virginia-dot-edu
-
-=head1 CONTRIBUTORS
-
-Albert Vilella avilella-AT-gmail-DOT-com
-
-=head1 APPENDIX
-
-The rest of the documentation details each of the object methods.
-Internal methods are usually preceded with a _
-
 =cut
-
-
-# Let the code begin...
 
 
 package Bio::Tools::Phylo::PAML::Result;
@@ -145,7 +90,7 @@ use strict;
 
 use base qw(Bio::Root::Root Bio::AnalysisResultI);
 
-=head2 new
+=method new
 
  Title   : new
  Usage   : my $obj = Bio::Tools::Phylo::PAML::Result->new(%data);
@@ -349,7 +294,7 @@ sub new {
   return $self;
 }
 
-=head2 next_tree
+=method next_tree
 
  Title   : next_tree
  Usage   : my $tree = $factory->next_tree;
@@ -364,7 +309,7 @@ sub next_tree{
    return $self->{'_trees'}->[$self->{'_treeiterator'}++] || undef;
 }
 
-=head2 get_trees
+=method get_trees
 
  Title   : get_trees
  Usage   : my @trees = $result->get_trees;
@@ -380,7 +325,7 @@ sub get_trees{
    return @{$self->{'_trees'} || []};
 }
 
-=head2 rewind_tree_iterator
+=method rewind_tree_iterator
 
  Title   : rewind_tree_iterator
  Usage   : $result->rewind_tree_iterator()
@@ -395,7 +340,7 @@ sub rewind_tree_iterator {
     shift->{'_treeiterator'} = 0;
 }
 
-=head2 add_tree
+=method add_tree
 
  Title   : add_tree
  Usage   : $result->add_tree($tree);
@@ -414,7 +359,7 @@ sub add_tree{
 }
 
 
-=head2 set_MLmatrix
+=method set_MLmatrix
 
  Title   : set_MLmatrix
  Usage   : $result->set_MLmatrix($mat)
@@ -436,7 +381,7 @@ sub set_MLmatrix{
    $self->{'_mlmatrix'} = $mat;
 }
 
-=head2 get_MLmatrix
+=method get_MLmatrix
 
  Title   : get_MLmatrix
  Usage   : my $mat = $result->get_MLmatrix()
@@ -452,7 +397,7 @@ sub get_MLmatrix{
    return $self->{'_mlmatrix'};
 }
 
-=head2 set_NGmatrix
+=method set_NGmatrix
 
  Title   : set_NGmatrix
  Usage   : $result->set_NGmatrix($mat)
@@ -474,7 +419,7 @@ sub set_NGmatrix{
    $self->{'_ngmatrix'} = $mat;
 }
 
-=head2 get_NGmatrix
+=method get_NGmatrix
 
  Title   : get_NGmatrix
  Usage   : my $mat = $result->get_NGmatrix()
@@ -491,7 +436,7 @@ sub get_NGmatrix{
 }
 
 
-=head2 add_seq
+=method add_seq
 
  Title   : add_seq
  Usage   : $obj->add_seq($seq)
@@ -514,7 +459,7 @@ sub add_seq{
 
 }
 
-=head2 reset_seqs
+=method reset_seqs
 
  Title   : reset_seqs
  Usage   : $result->reset_seqs
@@ -530,7 +475,7 @@ sub reset_seqs{
    $self->{'_seqs'} = [];
 }
 
-=head2 get_seqs
+=method get_seqs
 
  Title   : get_seqs
  Usage   : my @otus = $result->get_seqs
@@ -546,7 +491,7 @@ sub get_seqs{
    return @{$self->{'_seqs'}};
 }
 
-=head2 set_codon_pos_basefreq
+=method set_codon_pos_basefreq
 
  Title   : set_codon_pos_basefreq
  Usage   : $result->set_codon_pos_basefreq(@freqs)
@@ -573,7 +518,7 @@ sub set_codon_pos_basefreq {
     $self->{'_codonposbasefreq'} = [@codonpos];
 }
 
-=head2 get_codon_pos_basefreq
+=method get_codon_pos_basefreq
 
  Title   : get_codon_pos_basefreq
  Usage   : my @basepos = $result->get_codon_pos_basefreq;
@@ -592,7 +537,7 @@ sub get_codon_pos_basefreq{
    return @{$self->{'_codonposbasefreq'}};
 }
 
-=head2 version
+=method version
 
  Title   : version
  Usage   : $obj->version($newval)
@@ -609,7 +554,7 @@ sub version{
    return $self->{'_version'};
 }
 
-=head2 seqfile
+=method seqfile
 
  Title   : seqfile
  Usage   : $obj->seqfile($newval)
@@ -626,7 +571,7 @@ sub seqfile{
    return $self->{'_seqfile'};
 }
 
-=head2 model
+=method model
 
  Title   : model
  Usage   : $obj->model($newval)
@@ -645,7 +590,7 @@ sub model{
 }
 
 
-=head2 patterns
+=method patterns
 
  Title   : patterns
  Usage   : $obj->patterns($newval)
@@ -666,7 +611,7 @@ sub patterns{
     return $self->{'_patterns'};
 }
 
-=head2 set_AAFreqs
+=method set_AAFreqs
 
  Title   : set_AAFreqs
  Usage   : $result->set_AAFreqs(\%aafreqs);
@@ -688,7 +633,7 @@ sub set_AAFreqs{
    }
 }
 
-=head2 get_AAFreqs
+=method get_AAFreqs
 
  Title   : get_AAFreqs
  Usage   : my %all_aa_freqs = $result->get_AAFreqs() 
@@ -713,7 +658,7 @@ sub get_AAFreqs{
    }
 }
 
-=head2 set_NTFreqs
+=method set_NTFreqs
 
  Title   : set_NTFreqs
  Usage   : $result->set_NTFreqs(\%aafreqs);
@@ -735,7 +680,7 @@ sub set_NTFreqs{
    }
 }
 
-=head2 get_NTFreqs
+=method get_NTFreqs
 
  Title   : get_NTFreqs
  Usage   : my %all_nt_freqs = $result->get_NTFreqs() 
@@ -760,7 +705,7 @@ sub get_NTFreqs{
    }
 }
 
-=head2 add_stat
+=method add_stat
 
  Title   : add_stat
  Usage   : $result->add_stat($stat,$value);
@@ -779,7 +724,7 @@ sub add_stat{
    return;
 }
 
-=head2 get_stat
+=method get_stat
 
  Title   : get_stat
  Usage   : my $value = $result->get_stat($name);
@@ -795,7 +740,7 @@ sub get_stat{
    return $self->{'_stats'}->{$statname};
 }
 
-=head2 get_stat_names
+=method get_stat_names
 
  Title   : get_stat_names
  Usage   : my @names = $result->get_stat_names;
@@ -811,7 +756,7 @@ sub get_stat_names{
    return keys %{$self->{'_stats'} || {}};
 }
 
-=head2 get_AADistMatrix
+=method get_AADistMatrix
 
  Title   : get_AADistMatrix
  Usage   : my $mat = $obj->get_AADistMatrix()
@@ -827,7 +772,7 @@ sub get_AADistMatrix{
     return $self->{'_AADistMatix'};
 }
 
-=head2 set_AADistMatrix
+=method set_AADistMatrix
 
  Title   : set_AADistMatrix
  Usage   : $obj->set_AADistMatrix($mat);
@@ -849,7 +794,7 @@ sub set_AADistMatrix{
    return;
 }
 
-=head2 get_AAMLDistMatrix
+=method get_AAMLDistMatrix
 
  Title   : get_AAMLDistMatrix
  Usage   : my $mat = $obj->get_AAMLDistMatrix()
@@ -865,7 +810,7 @@ sub get_AAMLDistMatrix{
     return $self->{'_AAMLDistMatix'};
 }
 
-=head2 set_AAMLDistMatrix
+=method set_AAMLDistMatrix
 
  Title   : set_AAMLDistMatrix
  Usage   : $obj->set_AAMLDistMatrix($mat);
@@ -887,7 +832,7 @@ sub set_AAMLDistMatrix{
    return;
 }
 
-=head2 add_NSSite_result
+=method add_NSSite_result
 
  Title   : add_NSSite_result
  Usage   : $result->add_NSSite_result($model)
@@ -906,7 +851,7 @@ sub add_NSSite_result{
    return scalar @{$self->{'_nssiteresult'}};
 }
 
-=head2 get_NSSite_results
+=method get_NSSite_results
 
  Title   : get_NSSite_results
  Usage   : my @results = @{$self->get_NSSite_results};
@@ -922,7 +867,7 @@ sub get_NSSite_results{
    return @{$self->{'_nssiteresult'} || []};
 }
 
-=head2 set_CodonFreqs
+=method set_CodonFreqs
 
  Title   : set_CodonFreqs
  Usage   : $obj->set_CodonFreqs($newval)
@@ -940,7 +885,7 @@ sub set_CodonFreqs{
     return $self->{'_codonfreqs'};
 }
 
-=head2 get_CodonFreqs
+=method get_CodonFreqs
 
  Title   : get_CodonFreqs
  Usage   : my @codon_freqs = $result->get_CodonFreqs() 
@@ -957,11 +902,7 @@ sub get_CodonFreqs{
 }
 
 
-=head2 BASEML Relevant values
-
-=cut
-
-=head2 get_KappaMatrix
+=method get_KappaMatrix
 
  Title   : get_KappaMatrix
  Usage   : my $mat = $obj->get_KappaMatrix()
@@ -977,7 +918,7 @@ sub get_KappaMatrix{
     return $self->{'_KappaMatix'};
 }
 
-=head2 set_KappaMatrix
+=method set_KappaMatrix
 
  Title   : set_KappaMatrix
  Usage   : $obj->set_KappaMatrix($mat);
@@ -1000,7 +941,7 @@ sub set_KappaMatrix{
 }
 
 
-=head2 get_AlphaMatrix
+=method get_AlphaMatrix
 
  Title   : get_AlphaMatrix
  Usage   : my $mat = $obj->get_AlphaMatrix()
@@ -1016,7 +957,7 @@ sub get_AlphaMatrix{
     return $self->{'_AlphaMatix'};
 }
 
-=head2 set_AlphaMatrix
+=method set_AlphaMatrix
 
  Title   : set_AlphaMatrix
  Usage   : $obj->set_AlphaMatrix($mat);
@@ -1038,7 +979,7 @@ sub set_AlphaMatrix{
    return;
 }
 
-=head2 set_input_parameter
+=method set_input_parameter
 
  Title   : set_input_parameter
  Usage   : $obj->set_input_parameter($p,$vl);
@@ -1055,7 +996,7 @@ sub set_input_parameter{
    $self->{'_input_parameters'}->{$p} = $v;
 }
 
-=head2 get_input_parameters
+=method get_input_parameters
 
  Title   : get_input_parameters
  Usage   : $obj->get_input_parameters;
@@ -1071,7 +1012,7 @@ sub get_input_parameters{
    return %{$self->{'_input_parameters'} || {}};
 }
 
-=head2 reset_input_parameters
+=method reset_input_parameters
 
  Title   : reset_input_parameters
  Usage   : $obj->reset_input_parameters;
@@ -1089,7 +1030,7 @@ sub reset_input_parameters{
 
 =head1 Reconstructed Ancestral State relevant options 
 
-=head2 add_rst_seq
+=method add_rst_seq
 
  Title   : add_rst_seq
  Usage   : $obj->add_rst_seq($seq)
@@ -1112,7 +1053,7 @@ sub add_rst_seq{
 
 }
 
-=head2 reset_rst_seqs
+=method reset_rst_seqs
 
  Title   : reset_rst_seqs
  Usage   : $result->reset_rst_seqs
@@ -1128,7 +1069,7 @@ sub reset_rst_seqs{
    $self->{'_rstseqs'} = [];
 }
 
-=head2 get_rst_seqs
+=method get_rst_seqs
 
  Title   : get_rst_seqs
  Usage   : my @otus = $result->get_rst_seqs
@@ -1145,7 +1086,7 @@ sub get_rst_seqs{
 }
 
 
-=head2 add_rst_tree
+=method add_rst_tree
 
  Title   : add_rst_tree
  Usage   : $obj->add_rst_tree($tree)
@@ -1167,7 +1108,7 @@ sub add_rst_tree{
    }
 }
 
-=head2 reset_rst_trees
+=method reset_rst_trees
 
  Title   : reset_rst_trees
  Usage   : $result->reset_rst_trees
@@ -1183,7 +1124,7 @@ sub reset_rst_trees{
    $self->{'_rsttrees'} = [];
 }
 
-=head2 get_rst_trees
+=method get_rst_trees
 
  Title   : get_rst_trees
  Usage   : my @otus = $result->get_rst_trees
@@ -1199,7 +1140,7 @@ sub get_rst_trees{
    return @{$self->{'_rsttrees'} || []};
 }
 
-=head2 set_rst_persite
+=method set_rst_persite
 
  Title   : set_rst_persite
  Usage   : $obj->set_rst_persite($newval)
@@ -1217,7 +1158,7 @@ sub set_rst_persite{
     return $self->{'_rstpersite'};
 }
 
-=head2 get_rst_persite
+=method get_rst_persite
 
  Title   : get_rst_persite
  Usage   : my @rst_persite = @{$result->get_rst_persite()} 

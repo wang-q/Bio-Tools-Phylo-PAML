@@ -1,19 +1,9 @@
-#
-# BioPerl module for Bio::Tools::Run::Phylo::PAML::Baseml
-#
-# Please direct questions and support issues to <bioperl-l@bioperl.org> 
-#
-# Cared for by Jason Stajich <jason-AT-bioperl_DOT_org>
-#
-# Copyright Jason Stajich
-#
-# You may distribute this module under the same terms as perl itself
+# ABSTRACT: Wrapper aroud the PAML program baseml
+# AUTHOR: Jason Stajich <jason@bioperl.org>
+# OWNER: Jason Stajich <jason@bioperl.org>
+# LICENSE: Perl_5
 
-# POD documentation - main docs before the code
-
-=head1 NAME
-
-Bio::Tools::Run::Phylo::PAML::Baseml - Wrapper aroud the PAML program baseml
+# AUTHOR: Sendu Bala <bix@sendu.me.uk>
 
 =head1 SYNOPSIS
 
@@ -118,54 +108,7 @@ The values you can feed to the configuration file are documented here.
     'clock'    => [0..3], # 0: no clock, 1: clock, 2: local clock, 3: CombinedAnalysis
     'Small_Diff' => '1e-6', #underflow issues?
 
-=head1 FEEDBACK
-
-=head2 Mailing Lists
-
-User feedback is an integral part of the evolution of this and other
-Bioperl modules. Send your comments and suggestions preferably to
-the Bioperl mailing list.  Your participation is much appreciated.
-
-  bioperl-l@bioperl.org                  - General discussion
-  http://bioperl.org/wiki/Mailing_lists  - About the mailing lists
-
-=head2 Support 
-
-Please direct usage questions or support issues to the mailing list:
-
-I<bioperl-l@bioperl.org>
-
-rather than to the module maintainer directly. Many experienced and 
-reponsive experts will be able look at the problem and quickly 
-address it. Please include a thorough description of the problem 
-with code and data examples if at all possible.
-
-=head2 Reporting Bugs
-
-Report bugs to the Bioperl bug tracking system to help us keep track
-of the bugs and their resolution. Bug reports can be submitted via the
-web:
-
-  http://redmine.open-bio.org/projects/bioperl/
-
-=head1 AUTHOR - Jason Stajich
-
-Email jason-at-bioperl.org
-
-=head1 CONTRIBUTORS
-
-Sendu Bala - bix@sendu.me.uk
-
-=head1 APPENDIX
-
-The rest of the documentation details each of the object methods.
-Internal methods are usually preceded with a _
-
 =cut
-
-
-# Let the code begin...
-
 
 package Bio::Tools::Run::Phylo::PAML::Baseml;
 use vars qw(@ISA %VALIDVALUES $MINNAMELEN $PROGRAMNAME $PROGRAM);
@@ -265,7 +208,7 @@ BEGIN {
 }
 
 
-=head2 program_name
+=attr program_name
 
  Title   : program_name
  Usage   : $obj->program_name()
@@ -279,7 +222,7 @@ sub program_name {
     return $PROGRAMNAME;
 }
 
-=head2 program_dir
+=attr program_dir
 
  Title   : program_dir
  Usage   : ->program_dir()
@@ -293,7 +236,7 @@ sub program_dir {
             return Bio::Root::IO->catfile($ENV{PAMLDIR}) if $ENV{PAMLDIR};
 }
 
-=head2 new
+=method new
 
  Title   : new
  Usage   : my $obj = Bio::Tools::Run::Phylo::PAML::Baseml->new();
@@ -320,7 +263,7 @@ sub new {
   return $self;
 }
 
-=head2 run
+=method run
 
  Title   : run
  Usage   : $yn->run();
@@ -447,7 +390,7 @@ sub run {
    return ($rc,$parser);
 }
 
-=head2 error_string
+=attr error_string
 
  Title   : error_string
  Usage   : $obj->error_string($newval)
@@ -467,7 +410,7 @@ sub error_string {
 
 }
 
-=head2 alignment
+=attr alignment
 
  Title   : alignment
  Usage   : $baseml->alignment($aln);
@@ -490,7 +433,7 @@ sub tree {
     return $self->_tree(@_);
 }
 
-=head2 get_parameters
+=method get_parameters
 
  Title   : get_parameters
  Usage   : my %params = $self->get_parameters();
@@ -507,7 +450,7 @@ sub get_parameters{
 }
 
 
-=head2 set_parameter
+=method set_parameter
 
  Title   : set_parameter
  Usage   : $baseml->set_parameter($param,$val);
@@ -543,7 +486,7 @@ sub set_parameter{
    return 1;
 }
 
-=head2 set_default_parameters
+=method set_default_parameters
 
  Title   : set_default_parameters
  Usage   : $baseml->set_default_parameters(0);
@@ -576,7 +519,7 @@ sub set_default_parameters{
 
 =cut
 
-=head2 no_param_checks
+=attr no_param_checks
 
  Title   : no_param_checks
  Usage   : $obj->no_param_checks($newval)
@@ -588,7 +531,7 @@ sub set_default_parameters{
 
 =cut
 
-=head2 save_tempfiles
+=attr save_tempfiles
 
  Title   : save_tempfiles
  Usage   : $obj->save_tempfiles($newval)
@@ -599,7 +542,7 @@ sub set_default_parameters{
 
 =cut
 
-=head2 outfile_name
+=attr outfile_name
 
  Title   : outfile_name
  Usage   : my $outfile = $baseml->outfile_name();
@@ -622,7 +565,7 @@ sub outfile_name {
     return $self->{'_basemlparams'}->{'outfile'};    
 }
 
-=head2 tempdir
+=attr tempdir
 
  Title   : tempdir
  Usage   : my $tmpdir = $self->tempdir();
@@ -633,7 +576,7 @@ sub outfile_name {
 
 =cut
 
-=head2 cleanup
+=method cleanup
 
  Title   : cleanup
  Usage   : $baseml->cleanup();
@@ -644,7 +587,7 @@ sub outfile_name {
 
 =cut
 
-=head2 io
+=method io
 
  Title   : io
  Usage   : $obj->io($newval)

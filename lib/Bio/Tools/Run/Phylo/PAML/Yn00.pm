@@ -1,20 +1,7 @@
-# $Id$
-#
-# BioPerl module for Bio::Tools::Run::Phylo::PAML::Yn00
-#
-# Please direct questions and support issues to <bioperl-l@bioperl.org> 
-#
-# Cared for by Jason Stajich <jason-AT-bioperl_DOT_org>
-#
-# Copyright Jason Stajich
-#
-# You may distribute this module under the same terms as perl itself
-
-# POD documentation - main docs before the code
-
-=head1 NAME
-
-Bio::Tools::Run::Phylo::PAML::Yn00 - Wrapper aroud the PAML program yn00
+# ABSTRACT: Wrapper aroud the PAML program yn00
+# AUTHOR: Jason Stajich <jason@bioperl.org>
+# OWNER: Jason Stajich <jason@bioperl.org>
+# LICENSE: Perl_5
 
 =head1 SYNOPSIS
 
@@ -48,53 +35,7 @@ This module will generate a proper yn00.ctl file and will run the
 program in a separate temporary directory to avoid creating temp files
 all over the place and will cleanup after itself.
 
-=head1 FEEDBACK
-
-=head2 Mailing Lists
-
-User feedback is an integral part of the evolution of this and other
-Bioperl modules. Send your comments and suggestions preferably to
-the Bioperl mailing list.  Your participation is much appreciated.
-
-  bioperl-l@bioperl.org                  - General discussion
-  http://bioperl.org/wiki/Mailing_lists  - About the mailing lists
-
-=head2 Support 
-
-Please direct usage questions or support issues to the mailing list:
-
-I<bioperl-l@bioperl.org>
-
-rather than to the module maintainer directly. Many experienced and 
-reponsive experts will be able look at the problem and quickly 
-address it. Please include a thorough description of the problem 
-with code and data examples if at all possible.
-
-=head2 Reporting Bugs
-
-Report bugs to the Bioperl bug tracking system to help us keep track
-of the bugs and their resolution. Bug reports can be submitted via the
-web:
-
-
-=head1 AUTHOR - Jason Stajich
-
-Email jason-at-bioperl.org
-
-=head1 CONTRIBUTORS
-
-Additional contributors names and emails here
-
-=head1 APPENDIX
-
-The rest of the documentation details each of the object methods.
-Internal methods are usually preceded with a _
-
 =cut
-
-
-# Let the code begin...
-
 
 package Bio::Tools::Run::Phylo::PAML::Yn00;
 use vars qw(@ISA %VALIDVALUES $MINNAMELEN $PROGRAMNAME $PROGRAM);
@@ -154,7 +95,7 @@ BEGIN {
 }
 
 
-=head2 program_name
+=attr program_name
 
  Title   : program_name
  Usage   : $yn00->program_name()
@@ -168,7 +109,7 @@ sub program_name {
     return $PROGRAMNAME;
 }
 
-=head2 program_dir
+=attr program_dir
 
  Title   : program_dir
  Usage   : $yn00->program_dir()
@@ -182,7 +123,7 @@ sub program_dir {
             return Bio::Root::IO->catfile($ENV{PAMLDIR}) if $ENV{PAMLDIR};
 }
 
-=head2 new
+=method new
 
  Title   : new
  Usage   : my $obj = Bio::Tools::Run::Phylo::PAML::Yn00->new();
@@ -207,7 +148,7 @@ sub new {
   return $self;
 }
 
-=head2 run
+=method run
 
  Title   : run
  Usage   : $yn->run();
@@ -306,7 +247,7 @@ sub run{
    return ($rc,$parser);
 }
 
-=head2 error_string
+=attr error_string
 
  Title   : error_string
  Usage   : $obj->error_string($newval)
@@ -326,7 +267,7 @@ sub error_string{
 
 }
 
-=head2 alignment
+=attr alignment
 
  Title   : alignment
  Usage   : $codeml->align($aln);
@@ -351,7 +292,7 @@ sub alignment{
    return  $self->{'_alignment'};
 }
 
-=head2 get_parameters
+=method get_parameters
 
  Title   : get_parameters
  Usage   : my %params = $self->get_parameters();
@@ -369,7 +310,7 @@ sub get_parameters{
 }
 
 
-=head2 set_parameter
+=method set_parameter
 
  Title   : set_parameter
  Usage   : $codeml->set_parameter($param,$val);
@@ -403,7 +344,7 @@ sub set_parameter{
    return 1;
 }
 
-=head2 set_default_parameters
+=method set_default_parameters
 
  Title   : set_default_parameters
  Usage   : $codeml->set_default_parameters(0);
@@ -436,7 +377,7 @@ sub set_default_parameters{
 
 =cut
 
-=head2 no_param_checks
+=attr no_param_checks
 
  Title   : no_param_checks
  Usage   : $obj->no_param_checks($newval)
@@ -448,7 +389,7 @@ sub set_default_parameters{
 
 =cut
 
-=head2 save_tempfiles
+=attr save_tempfiles
 
  Title   : save_tempfiles
  Usage   : $obj->save_tempfiles($newval)
@@ -459,7 +400,7 @@ sub set_default_parameters{
 
 =cut
 
-=head2 outfile_name
+=attr outfile_name
 
  Title   : outfile_name
  Usage   : my $outfile = $codeml->outfile_name();
@@ -472,7 +413,7 @@ sub set_default_parameters{
 =cut
 
 
-=head2 tempdir
+=attr tempdir
 
  Title   : tempdir
  Usage   : my $tmpdir = $self->tempdir();
@@ -483,7 +424,7 @@ sub set_default_parameters{
 
 =cut
 
-=head2 cleanup
+=method cleanup
 
  Title   : cleanup
  Usage   : $codeml->cleanup();
@@ -494,7 +435,7 @@ sub set_default_parameters{
 
 =cut
 
-=head2 io
+=method io
 
  Title   : io
  Usage   : $obj->io($newval)
