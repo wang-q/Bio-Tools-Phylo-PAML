@@ -1,3 +1,15 @@
+package Bio::Tools::Phylo::PAML::Codeml;
+
+use vars qw(@ISA);
+use strict;
+
+use Bio::Root::Root;
+use Bio::Root::IO;
+use Bio::TreeIO;
+use IO::String;
+
+@ISA = qw(Bio::Root::Root Bio::Root::IO );
+
 # ABSTRACT: Parses output from the PAML program codeml
 # AUTHOR: Jason Stajich <jason@bioperl.org>
 # AUTHOR: Aaron Mackey <amackey@virginia.edu>
@@ -112,19 +124,6 @@ This module should also be able to handle "codemlsites" batch
 output...
 
 =cut
-
-package Bio::Tools::Phylo::PAML::Codeml;
-use vars qw(@ISA);
-use strict;
-
-# Object preamble - inherits from Bio::Root::Root
-
-use Bio::Root::Root;
-use Bio::Root::IO;
-use Bio::TreeIO;
-use IO::String;
-
-@ISA = qw(Bio::Root::Root Bio::Root::IO );
 
 =method new
 

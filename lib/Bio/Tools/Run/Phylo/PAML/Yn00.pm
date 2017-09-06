@@ -1,3 +1,16 @@
+package Bio::Tools::Run::Phylo::PAML::Yn00;
+
+use vars qw(@ISA %VALIDVALUES $MINNAMELEN $PROGRAMNAME $PROGRAM);
+use strict;
+use Cwd;
+use Bio::Root::Root;
+use Bio::AlignIO;
+use Bio::TreeIO;
+use Bio::Tools::Run::WrapperBase;
+use Bio::Tools::Phylo::PAML;
+
+@ISA = qw(Bio::Root::Root Bio::Tools::Run::WrapperBase);
+
 # ABSTRACT: Wrapper aroud the PAML program yn00
 # AUTHOR: Jason Stajich <jason@bioperl.org>
 # OWNER: Jason Stajich <jason@bioperl.org>
@@ -36,19 +49,6 @@ program in a separate temporary directory to avoid creating temp files
 all over the place and will cleanup after itself.
 
 =cut
-
-package Bio::Tools::Run::Phylo::PAML::Yn00;
-use vars qw(@ISA %VALIDVALUES $MINNAMELEN $PROGRAMNAME $PROGRAM);
-use strict;
-use Cwd;
-use Bio::Root::Root;
-use Bio::AlignIO;
-use Bio::TreeIO;
-use Bio::Tools::Run::WrapperBase;
-use Bio::Tools::Phylo::PAML;
-
-@ISA = qw(Bio::Root::Root Bio::Tools::Run::WrapperBase);
-
 
 =head2 Default Values
 

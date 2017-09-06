@@ -1,3 +1,13 @@
+package Bio::Installer::PAML;
+
+use vars qw(@ISA %DEFAULTS);
+use strict;
+
+use Bio::Root::Root;
+use Bio::Installer::Generic;
+
+@ISA = qw(Bio::Installer::Generic );
+
 # ABSTRACT: DESCRIPTION of Object
 # AUTHOR: Albert Vilella <avilella@gmail.com>
 # OWNER: Albert Vilella <avilella@gmail.com>
@@ -12,17 +22,6 @@ Give standard usage here
 Describe the object here
 
 =cut
-
-package Bio::Installer::PAML;
-use vars qw(@ISA %DEFAULTS);
-use strict;
-
-# Object preamble - inherits from Bio::Root::Root
-
-use Bio::Root::Root;
-use Bio::Installer::Generic;
-
-@ISA = qw(Bio::Installer::Generic );
 
 BEGIN {
     %DEFAULTS = ( 'ORIGIN_DOWNLOAD_DIR' => 'http://abacus.gene.ucl.ac.uk/software/',

@@ -1,3 +1,14 @@
+package Bio::Tools::Run::Phylo::PAML::Baseml;
+
+use vars qw(@ISA %VALIDVALUES $MINNAMELEN $PROGRAMNAME $PROGRAM);
+use strict;
+use Cwd;
+use Bio::AlignIO;
+use Bio::TreeIO;
+use Bio::Tools::Phylo::PAML;
+
+use base qw(Bio::Tools::Run::Phylo::PhyloBase);
+
 # ABSTRACT: Wrapper aroud the PAML program baseml
 # AUTHOR: Jason Stajich <jason@bioperl.org>
 # OWNER: Jason Stajich <jason@bioperl.org>
@@ -109,17 +120,6 @@ The values you can feed to the configuration file are documented here.
     'Small_Diff' => '1e-6', #underflow issues?
 
 =cut
-
-package Bio::Tools::Run::Phylo::PAML::Baseml;
-use vars qw(@ISA %VALIDVALUES $MINNAMELEN $PROGRAMNAME $PROGRAM);
-use strict;
-use Cwd;
-use Bio::AlignIO;
-use Bio::TreeIO;
-use Bio::Tools::Phylo::PAML;
-
-use base qw(Bio::Tools::Run::Phylo::PhyloBase);
-
 
 BEGIN { 
     $MINNAMELEN = 25;

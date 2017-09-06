@@ -1,3 +1,16 @@
+package Bio::Tools::Run::Phylo::PAML::Codeml;
+
+use vars qw(@ISA %VALIDVALUES $MINNAMELEN $PROGRAMNAME $PROGRAM);
+use strict;
+use Bio::Root::Root;
+use Bio::AlignIO;
+use Bio::TreeIO;
+use Bio::Tools::Run::WrapperBase;
+use Bio::Tools::Phylo::PAML;
+use Cwd;
+
+@ISA = qw(Bio::Root::Root Bio::Tools::Run::WrapperBase);
+
 # ABSTRACT: Wrapper aroud the PAML program codeml
 # AUTHOR: Jason Stajich <jason@bioperl.org>
 # OWNER: Jason Stajich <jason@bioperl.org>
@@ -33,18 +46,6 @@ will run the program in a separate temporary directory to avoid
 creating temp files all over the place.
 
 =cut
-
-package Bio::Tools::Run::Phylo::PAML::Codeml;
-use vars qw(@ISA %VALIDVALUES $MINNAMELEN $PROGRAMNAME $PROGRAM);
-use strict;
-use Bio::Root::Root;
-use Bio::AlignIO;
-use Bio::TreeIO;
-use Bio::Tools::Run::WrapperBase;
-use Bio::Tools::Phylo::PAML;
-use Cwd;
-
-@ISA = qw(Bio::Root::Root Bio::Tools::Run::WrapperBase);
 
 =head2 Default Values
 

@@ -1,3 +1,9 @@
+package Bio::Tools::Phylo::PAML::ModelResult;
+
+use strict;
+
+use base qw(Bio::Root::Root);
+
 # ABSTRACT: A container for NSSite Model Result from PAML
 # AUTHOR: Jason Stajich <jason@bioperl.org>
 # OWNER: Jason Stajich <jason@bioperl.org>
@@ -29,14 +35,6 @@
   }
 
 =cut
-
-package Bio::Tools::Phylo::PAML::ModelResult;
-use strict;
-
-# Object preamble - inherits from Bio::Root::Root
-
-
-use base qw(Bio::Root::Root);
 
 =method new
 

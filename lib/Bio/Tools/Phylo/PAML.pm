@@ -1,3 +1,19 @@
+package Bio::Tools::Phylo::PAML;
+
+use vars qw($RSTFILENAME);
+use strict;
+
+use base qw(Bio::Root::Root Bio::Root::IO Bio::AnalysisParserI);
+
+use IO::String;
+use File::Spec;
+use Bio::TreeIO;
+use Bio::Tools::Phylo::PAML::Result;
+use Bio::LocatableSeq;
+use Bio::PrimarySeq;
+use Bio::Matrix::PhylipDist;
+use Bio::Tools::Phylo::PAML::ModelResult;
+
 # ABSTRACT: Parses output from the PAML programs codeml, baseml, basemlg, codemlsites and yn00
 # AUTHOR: Jason Stajich <jason@bioperl.org>
 # AUTHOR: Aaron Mackey <amackey@virginia.edu>
@@ -139,27 +155,9 @@ RST parsing -- done, Avilella contributions bug#1506, added by jason 1.29
 
 =cut
 
-package Bio::Tools::Phylo::PAML;
-use vars qw($RSTFILENAME);
-use strict;
-
-# Object preamble - inherits from Bio::Root::Root
-
-use base qw(Bio::Root::Root Bio::Root::IO Bio::AnalysisParserI);
-
 BEGIN {
     $RSTFILENAME = 'rst';    # where to get the RST data from
 }
-
-# other objects used:
-use IO::String;
-use File::Spec;
-use Bio::TreeIO;
-use Bio::Tools::Phylo::PAML::Result;
-use Bio::LocatableSeq;
-use Bio::PrimarySeq;
-use Bio::Matrix::PhylipDist;
-use Bio::Tools::Phylo::PAML::ModelResult;
 
 =method new
 

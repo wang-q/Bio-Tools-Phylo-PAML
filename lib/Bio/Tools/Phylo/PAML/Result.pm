@@ -1,3 +1,9 @@
+package Bio::Tools::Phylo::PAML::Result;
+
+use strict;
+
+use base qw(Bio::Root::Root Bio::AnalysisResultI);
+
 # ABSTRACT: A PAML result set object
 # AUTHOR: Jason Stajich <jason@bioperl.org>
 # AUTHOR: Aaron Mackey <amackey@virginia.edu>
@@ -82,13 +88,6 @@
 This is a container object for PAML Results.
 
 =cut
-
-
-package Bio::Tools::Phylo::PAML::Result;
-use strict;
-
-
-use base qw(Bio::Root::Root Bio::AnalysisResultI);
 
 =method new
 
