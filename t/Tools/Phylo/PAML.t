@@ -2,14 +2,12 @@ use utf8;
 use strict;
 use warnings;
 
-BEGIN {
-    use lib '.';
-    use Bio::Root::Test;
+use Test::More;
+use File::Spec;
+use Bio::Tools::Phylo::PAML;
 
-    test_begin(-tests => 256,
-               -requires_module => 'IO::String');
-
-    use_ok('Bio::Tools::Phylo::PAML');
+sub test_input_file {
+    return File::Spec->catfile('t', 'data', @_);
 }
 
 my $inpaml = Bio::Tools::Phylo::PAML->new(-file => test_input_file('codeml_parse.mlc'));
@@ -542,3 +540,5 @@ is($MLmat->[0]->[2]->{'lnL'}, -1512.583367);
     my $kappa = $MLmatrix->[0]->[1]->{'kappa'};
     is ($kappa, '2.000', 'bug 3331');
 }
+
+done_testing();
