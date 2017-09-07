@@ -186,26 +186,26 @@ sub _parse_mlc {
     my ($self) = @_;
     my %data;
     while( defined( $_ = $self->_readline) ) {
-	print;
-	# Aaron this is where the parsing should begin
+        print;
+        # Aaron this is where the parsing should begin
 
-	# I'll do the Tree objects if you like -
-	# I'd do it by building an IO::String for the
-	# the tree data
-	# or does it make more sense to parse this out of a collection of
-	# files?
-	if( /^TREE/ ) {
-	    # ...
-	    while( defined($_ = $self->_readline) ) {
-		if( /^\(/) {
-		    my $treestr = IO::String->new($_);
-		    my $treeio = Bio::TreeIO->new(-fh => $treestr,
-						 -format => 'newick');
-		    # this is very tenative here!!
-		    push @{$self->{'_trees'}}, $treeio->next_tree;
-		}
-	    }
-	}
+        # I'll do the Tree objects if you like -
+        # I'd do it by building an IO::String for the
+        # the tree data
+        # or does it make more sense to parse this out of a collection of
+        # files?
+        if( /^TREE/ ) {
+            # ...
+            while( defined($_ = $self->_readline) ) {
+                if( /^\(/) {
+                    my $treestr = IO::String->new($_);
+                    my $treeio = Bio::TreeIO->new(-fh => $treestr,
+                                                 -format => 'newick');
+                    # this is very tenative here!!
+                    push @{$self->{'_trees'}}, $treeio->next_tree;
+                }
+            }
+        }
     }
 }
 

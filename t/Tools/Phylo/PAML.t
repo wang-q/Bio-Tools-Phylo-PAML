@@ -8,9 +8,9 @@ BEGIN {
     use Bio::Root::Test;
 
     test_begin(-tests => 256,
-			   -requires_module => 'IO::String');
+               -requires_module => 'IO::String');
 
-	use_ok('Bio::Tools::Phylo::PAML');
+    use_ok('Bio::Tools::Phylo::PAML');
 }
 
 my $inpaml = Bio::Tools::Phylo::PAML->new(-file => test_input_file('codeml_parse.mlc'));
@@ -169,15 +169,15 @@ is($NGmat->[1]->[2]->{'dS'}, 0.0671);
           #   kappa   log-likelihood tree length time used
           #   shape   alpha/gamma r          f
 my @tstr = ([qw(0 one-ratio 0
-		4.54006 -906.017440    0.55764
-		)],
-	    [qw(1 neutral 2
-		4.29790 -902.503869    0.56529
-		)],
-	    [qw(2 selection 3
-		5.12250 -900.076500    0.6032
-		)],
-	     );
+                4.54006 -906.017440    0.55764
+                )],
+            [qw(1 neutral 2
+                4.29790 -902.503869    0.56529
+                )],
+            [qw(2 selection 3
+                5.12250 -900.076500    0.6032
+                )],
+             );
 my $iter = 0;
 my $lastmodel;
 foreach my $model ( $result->get_NSSite_results ) {
@@ -192,15 +192,15 @@ foreach my $model ( $result->get_NSSite_results ) {
     is($tree->score, $r->[$i++]);
     is($tree->total_branch_length, $r->[$i++]);
     if( $iter == 0 ) {
-	my $params = $model->shape_params;
-	is($params->{'shape'}, 'alpha');
-	is($params->{'gamma'},   '0.50000');
-	is($params->{'r'}->[0], '1.00000');
-	is($params->{'f'}->[0], '1.00000');
+        my $params = $model->shape_params;
+        is($params->{'shape'}, 'alpha');
+        is($params->{'gamma'},   '0.50000');
+        is($params->{'r'}->[0], '1.00000');
+        is($params->{'f'}->[0], '1.00000');
     } elsif( $iter == 2 ) {
-	my $class = $model->dnds_site_classes;
-	is($class->{'p'}->[0], '0.38160');
-	is($class->{'w'}->[1], '1.00000');
+        my $class = $model->dnds_site_classes;
+        is($class->{'p'}->[0], '0.38160');
+        is($class->{'w'}->[1], '1.00000');
     }
     $iter++;
     $lastmodel = $model;
@@ -462,9 +462,9 @@ is($MLmat->[0]->[2]->{'lnL'}, -1512.583367);
         is($tree->score, $r->[$i++]);
         like($tree->total_branch_length, qr/$r->[$i++]/);
         if( $iter == 1 ) {
-    	    my $class = $model->dnds_site_classes;
-    	    is($class->{'p'}->[0], '0.83347');
-    	    is($class->{'w'}->[1], '1.00000');
+                my $class = $model->dnds_site_classes;
+                is($class->{'p'}->[0], '0.83347');
+                is($class->{'w'}->[1], '1.00000');
         }
         $iter++;
         $lastmodel = $model;
@@ -506,11 +506,11 @@ is($MLmat->[0]->[2]->{'lnL'}, -1512.583367);
 
     my $result = $parser->next_result;
 
-	my @otus = $result->get_seqs();
-	is(scalar @otus, 9, 'bug 3365');
+    my @otus = $result->get_seqs();
+    is(scalar @otus, 9, 'bug 3365');
 
-	my $MLmatrix = $result->get_MLmatrix();
-	is($MLmatrix->[1]->[2]->{dN},0.0103,'bug 3366');
+    my $MLmatrix = $result->get_MLmatrix();
+    is($MLmatrix->[1]->[2]->{dN},0.0103,'bug 3366');
 }
 
 # bug 3367
@@ -520,8 +520,8 @@ is($MLmat->[0]->[2]->{'lnL'}, -1512.583367);
 
     my $result = $parser->next_result;
 
-	my @otus = $result->get_seqs();
-	is(scalar @otus, 9, 'bug 3367');
+    my @otus = $result->get_seqs();
+    is(scalar @otus, 9, 'bug 3367');
 }
 
 # bug 3332
@@ -529,17 +529,17 @@ is($MLmat->[0]->[2]->{'lnL'}, -1512.583367);
     my $parser = Bio::Tools::Phylo::PAML->new
         (-file => test_input_file('codeml45b.mlc'));
 
-	my $result = $parser->next_result;
-	my $omega2 = $result->get_NGmatrix()->[0]->[1]->{'omega'};
-	is($result->get_NGmatrix()->[0]->[1]->{'omega'}, '-1.0300', 'bug 3332');
+    my $result = $parser->next_result;
+    my $omega2 = $result->get_NGmatrix()->[0]->[1]->{'omega'};
+    is($result->get_NGmatrix()->[0]->[1]->{'omega'}, '-1.0300', 'bug 3332');
 }
 
 # bug 3331
 {
     my $parser = Bio::Tools::Phylo::PAML->new
         (-file => test_input_file('bug3331.mlc'));
-	my $result = $parser->next_result;
-	my $MLmatrix = $result->get_MLmatrix();
-	my $kappa = $MLmatrix->[0]->[1]->{'kappa'};
-	is ($kappa, '2.000', 'bug 3331');
+    my $result = $parser->next_result;
+    my $MLmatrix = $result->get_MLmatrix();
+    my $kappa = $MLmatrix->[0]->[1]->{'kappa'};
+    is ($kappa, '2.000', 'bug 3331');
 }

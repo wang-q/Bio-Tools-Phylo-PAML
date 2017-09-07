@@ -52,15 +52,15 @@ use base qw(Bio::Root::Root);
            -trees               => arrayref of tree(s) data for this model
            -shape_params        => hashref of parameters
                                    ('shape' => 'alpha',
-				    'gamma' => $g,
-				    'r' => $r,
-				    'f' => $f
-				    )
+                    'gamma' => $g,
+                    'r' => $r,
+                    'f' => $f
+                    )
                                     OR
-				    ( 'shape' => 'beta',
-				      'p' => $p,
-				      'q' => $q
-				     )
+                    ( 'shape' => 'beta',
+                      'p' => $p,
+                      'q' => $q
+                     )
            -likelihood          => likelihood
            -num_site_classes    => number of site classes
            -dnds_site_classes   => hashref with two keys, 'p' and 'w'
@@ -80,64 +80,64 @@ sub new {
       $num_site_classes, $shape_params,
       $dnds_classes,
       $likelihood) =          $self->_rearrange([qw(MODEL_NUM
-						      MODEL_DESCRIPTION
-						      KAPPA
-						      TIME_USED
-						      TREES
-						      POS_SITES
+                              MODEL_DESCRIPTION
+                              KAPPA
+                              TIME_USED
+                              TREES
+                              POS_SITES
                                                       NEB_SITES BEB_SITES
-						      NUM_SITE_CLASSES
-						      SHAPE_PARAMS
-						      DNDS_SITE_CLASSES
-						      LIKELIHOOD)],
-						 @args);
+                              NUM_SITE_CLASSES
+                              SHAPE_PARAMS
+                              DNDS_SITE_CLASSES
+                              LIKELIHOOD)],
+                         @args);
   if( $trees ) {
       if(ref($trees) !~ /ARRAY/i ) {
-	  $self->warn("Must provide a valid array reference to initialize trees");
+      $self->warn("Must provide a valid array reference to initialize trees");
       } else {
-	  foreach my $t ( @$trees ) {
-	      $self->add_tree($t);
-	  }
+      foreach my $t ( @$trees ) {
+          $self->add_tree($t);
+      }
       }
   }
   $self->{'_treeiterator'} = 0;
   if( $pos_sites ) {
       if(ref($pos_sites) !~ /ARRAY/i ) {
-	  $self->warn("Must provide a valid array reference to initialize pos_sites");
+      $self->warn("Must provide a valid array reference to initialize pos_sites");
       } else {
-	  foreach my $s ( @$pos_sites ) {
-	      if( ref($s) !~ /ARRAY/i ) {
-		  $self->warn("Need an array reference for each entry in the pos_sites object");
-		  next;
-	      }
-	      $self->add_pos_selected_site(@$s);
-	  }
+      foreach my $s ( @$pos_sites ) {
+          if( ref($s) !~ /ARRAY/i ) {
+          $self->warn("Need an array reference for each entry in the pos_sites object");
+          next;
+          }
+          $self->add_pos_selected_site(@$s);
+      }
       }
   }
   if( $beb_sites ) {
     if(ref($beb_sites) !~ /ARRAY/i ) {
-	  $self->warn("Must provide a valid array reference to initialize beb_sites");
+      $self->warn("Must provide a valid array reference to initialize beb_sites");
       } else {
-	  foreach my $s ( @$beb_sites ) {
-	      if( ref($s) !~ /ARRAY/i ) {
-		  $self->warn("need an array ref for each entry in the beb_sites object");
-		  next;
-	      }
-	      $self->add_BEB_pos_selected_site(@$s);
-	  }
+      foreach my $s ( @$beb_sites ) {
+          if( ref($s) !~ /ARRAY/i ) {
+          $self->warn("need an array ref for each entry in the beb_sites object");
+          next;
+          }
+          $self->add_BEB_pos_selected_site(@$s);
+      }
       }
   }
   if( $neb_sites ) {
     if(ref($neb_sites) !~ /ARRAY/i ) {
-	  $self->warn("Must provide a valid array reference to initialize neb_sites");
+      $self->warn("Must provide a valid array reference to initialize neb_sites");
       } else {
-	  foreach my $s ( @$neb_sites ) {
-	      if( ref($s) !~ /ARRAY/i ) {
-		  $self->warn("need an array ref for each entry in the neb_sites object");
-		  next;
-	      }
-	      $self->add_NEB_pos_selected_site(@$s);
-	  }
+      foreach my $s ( @$neb_sites ) {
+          if( ref($s) !~ /ARRAY/i ) {
+          $self->warn("need an array ref for each entry in the neb_sites object");
+          next;
+          }
+          $self->add_NEB_pos_selected_site(@$s);
+      }
       }
   }
 
@@ -150,18 +150,18 @@ sub new {
   $self->num_site_classes($num_site_classes || 0);
   if( defined $dnds_classes ) {
       if( ref($dnds_classes) !~ /HASH/i ||
-	  ! defined $dnds_classes->{'p'} ||
-	  ! defined $dnds_classes->{'w'} ) {
-	  $self->warn("-dnds_site_classes expects a hashref with keys p and w");
+      ! defined $dnds_classes->{'p'} ||
+      ! defined $dnds_classes->{'w'} ) {
+      $self->warn("-dnds_site_classes expects a hashref with keys p and w");
       } else {
-	  $self->dnds_site_classes($dnds_classes);
+      $self->dnds_site_classes($dnds_classes);
       }
   }
   if( defined $shape_params ) {
       if( ref($shape_params) !~ /HASH/i ) {
-	  $self->warn("-shape_params expects a hashref not $shape_params\n");
+      $self->warn("-shape_params expects a hashref not $shape_params\n");
       } else {
-	  $self->shape_params($shape_params);
+      $self->shape_params($shape_params);
       }
   }
   return $self;

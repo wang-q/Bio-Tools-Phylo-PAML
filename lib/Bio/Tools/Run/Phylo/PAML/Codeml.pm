@@ -22,7 +22,7 @@ use Cwd;
   use Bio::AlignIO;
 
   my $alignio = Bio::AlignIO->new(-format => 'phylip',
-  			         -file   => 't/data/gf-s85.phylip');
+                       -file   => 't/data/gf-s85.phylip');
 
   my $aln = $alignio->next_aln;
 
@@ -179,7 +179,7 @@ BEGIN {
     $MINNAMELEN = 25;
     $PROGRAMNAME = 'codeml' . ($^O =~ /mswin/i ?'.exe':'');
     if( defined $ENV{'PAMLDIR'} ) {
-	$PROGRAM = Bio::Root::IO->catfile($ENV{'PAMLDIR'},$PROGRAMNAME). ($^O =~ /mswin/i ?'.exe':'');;
+    $PROGRAM = Bio::Root::IO->catfile($ENV{'PAMLDIR'},$PROGRAMNAME). ($^O =~ /mswin/i ?'.exe':'');;
     }
 
     # valid values for parameters, the default one is always
@@ -187,103 +187,103 @@ BEGIN {
     # much of the documentation here is lifted directly from the codeml.ctl
     # example file provided with the package
     %VALIDVALUES = (
-		     'outfile' => 'mlc',
-		     'noisy'   => [ 0..3,9],
-		     'verbose' => [ 1,0,2], # 0:concise, 1:detailed, 2:too much
+             'outfile' => 'mlc',
+             'noisy'   => [ 0..3,9],
+             'verbose' => [ 1,0,2], # 0:concise, 1:detailed, 2:too much
 
                      # (runmode) 0:user tree, 1:semi-autmatic, 2:automatic
-		     #           3:stepwise addition, 4,5:PerturbationNNI
-		     #           -2:pairwise
-		     'runmode' => [ -2, 0..5],
+             #           3:stepwise addition, 4,5:PerturbationNNI
+             #           -2:pairwise
+             'runmode' => [ -2, 0..5],
 
-		     'seqtype' => [ 1..3], # 1:codons, 2:AAs, 3:codons->AAs
+             'seqtype' => [ 1..3], # 1:codons, 2:AAs, 3:codons->AAs
 
-		     'CodonFreq' => [ 2, 0,1,3,4,5,6,7], # 0:1/61 each, 1:F1X4,
-		                                # 2:F3X4, 3:codon table
+             'CodonFreq' => [ 2, 0,1,3,4,5,6,7], # 0:1/61 each, 1:F1X4,
+                                        # 2:F3X4, 3:codon table
 
-		     # (aaDist) 0:equal, +:geometric, -:linear,
-		     #          1-6:G1974,Miyata, c,p,v,a
-		     'aaDist'  => [ 0,'+','-', 1..6],
+             # (aaDist) 0:equal, +:geometric, -:linear,
+             #          1-6:G1974,Miyata, c,p,v,a
+             'aaDist'  => [ 0,'+','-', 1..6],
 
                      # (aaRatefile) only used for aa seqs
-		     # with model=empirical(_F)
-		     # default is usually 'wag.dat', also
-		     # dayhoff.dat, jones.dat, mtmam.dat, or your own
-		     'aaRatefile' => 'wag.dat',
+             # with model=empirical(_F)
+             # default is usually 'wag.dat', also
+             # dayhoff.dat, jones.dat, mtmam.dat, or your own
+             'aaRatefile' => 'wag.dat',
 
-		     # (model) models for codons
-		     # 0: one, 1:b, 2:2 or more dN/dS ratios for branches
-		     'model'    => [0..3,7],
+             # (model) models for codons
+             # 0: one, 1:b, 2:2 or more dN/dS ratios for branches
+             'model'    => [0..3,7],
 
-		     # (NSsites) number of S sites
-		     # 0: one w;1:neutral;2:selection; 3:discrete;4:freqs;
+             # (NSsites) number of S sites
+             # 0: one w;1:neutral;2:selection; 3:discrete;4:freqs;
                      # 5:gamma;6:2gamma;7:beta;8:beta&w;9:beta&gamma;
                      # 10:beta&gamma+1; 11:beta&normal>1; 12:0&2normal>1;
                      # 13:3normal>0
-		     'NSsites'  => [0..13],
+             'NSsites'  => [0..13],
 
-		     # (icode) genetic code
-		     # 0:universal code
-		     # 1:mamalian mt
-		     # 2:yeast mt
-		     # 3:mold mt,
-		     # 4:invertebrate mt
-		     # 5:ciliate nuclear
-		     # 6:echinoderm mt
-		     # 7:euplotid mt
-		     # 8:alternative yeast nu.
-		     # 9:ascidian mt
-		     #10:blepharisma nu
-		     # these correspond to 1-11 in the genbank transl table
+             # (icode) genetic code
+             # 0:universal code
+             # 1:mamalian mt
+             # 2:yeast mt
+             # 3:mold mt,
+             # 4:invertebrate mt
+             # 5:ciliate nuclear
+             # 6:echinoderm mt
+             # 7:euplotid mt
+             # 8:alternative yeast nu.
+             # 9:ascidian mt
+             #10:blepharisma nu
+             # these correspond to 1-11 in the genbank transl table
 
-		     'icode'    => [ 0..10],
+             'icode'    => [ 0..10],
 
-		     'Mgene'    => [0,1], # 0:rates, 1:separate
+             'Mgene'    => [0,1], # 0:rates, 1:separate
 
-		     'fix_kappa'=> [0,1], # 0:estimate kappa, 1:fix kappa
-		     'kappa'    => '2',   # initial or fixed kappa
-		     'fix_omega'=> [0,1], # 0: estimate omega, 1: fix omega
-		     'omega'    => '1', # initial or fixed omega for
-		                          # codons or codon-base AAs
-		     'fix_alpha'=> [1,0], # 0: estimate gamma shape param
-		                          # 1: fix it at alpha
-		     'alpha'    => '0.', # initial or fixed alpha
-		                        # 0: infinity (constant rate)
-		     'Malpha'   => [0,1], # different alphas for genes
-		     'ncatG'    => [1..10], # number of categories in
-		                        # dG of NSsites models
+             'fix_kappa'=> [0,1], # 0:estimate kappa, 1:fix kappa
+             'kappa'    => '2',   # initial or fixed kappa
+             'fix_omega'=> [0,1], # 0: estimate omega, 1: fix omega
+             'omega'    => '1', # initial or fixed omega for
+                                  # codons or codon-base AAs
+             'fix_alpha'=> [1,0], # 0: estimate gamma shape param
+                                  # 1: fix it at alpha
+             'alpha'    => '0.', # initial or fixed alpha
+                                # 0: infinity (constant rate)
+             'Malpha'   => [0,1], # different alphas for genes
+             'ncatG'    => [1..10], # number of categories in
+                                # dG of NSsites models
 
-		     # (clock)
-		     # 0: no clock, 1: global clock, 2: local clock
-		     # 3: TipDate
-		     'clock'    => [0..3],
-		     # (getSE) Standard Error:
-		     # 0:don't want them, 1: want S.E.
-		     'getSE'    => [0,1],
-		     # (RateAncestor)
-		     # 0,1,2 rates (alpha>0) or
-		     # ancestral states (1 or 2)
-		     'RateAncestor' => [1,0,2],
-		     'Small_Diff'    => '.5e-6',
+             # (clock)
+             # 0: no clock, 1: global clock, 2: local clock
+             # 3: TipDate
+             'clock'    => [0..3],
+             # (getSE) Standard Error:
+             # 0:don't want them, 1: want S.E.
+             'getSE'    => [0,1],
+             # (RateAncestor)
+             # 0,1,2 rates (alpha>0) or
+             # ancestral states (1 or 2)
+             'RateAncestor' => [1,0,2],
+             'Small_Diff'    => '.5e-6',
                      # (cleandata) remove sites with ambiguity data
-		     # 1: yes, 0:no
-		     'cleandata'     => [0,1],
-		     # this is the number of datasets in
-		     # the file - we would need to change
-		     # our api to allow >1 alignment object
-		     # to be referenced at time
-		     'ndata'         => 1,
-		     # (method)
-		     # 0: simultaneous,1: 1 branch at a time
-		     'method'        => [0,1],
+             # 1: yes, 0:no
+             'cleandata'     => [0,1],
+             # this is the number of datasets in
+             # the file - we would need to change
+             # our api to allow >1 alignment object
+             # to be referenced at time
+             'ndata'         => 1,
+             # (method)
+             # 0: simultaneous,1: 1 branch at a time
+             'method'        => [0,1],
 
-		     # allow branch lengths to be fixed
-		     # 0 ignore
-		     # -1 use random starting points
-		     # 1 use the branch lengths in initial ML iteration
-		     # 2 branch lengths are fixed
-		     'fix_blength'   => [0,-1,1,2],
-		     );
+             # allow branch lengths to be fixed
+             # 0 ignore
+             # -1 use random starting points
+             # 1 use the branch lengths in initial ML iteration
+             # 2 branch lengths are fixed
+             'fix_blength'   => [0,-1,1,2],
+             );
 }
 
 =attr program_name
@@ -342,8 +342,8 @@ sub new {
   $self->{'_branchLengths'} = 0;
   my ($aln, $tree, $st, $params, $exe,
       $ubl) = $self->_rearrange([qw(ALIGNMENT TREE SAVE_TEMPFILES
-				    PARAMS EXECUTABLE BRANCHLENGTHS)],
-				    @args);
+                    PARAMS EXECUTABLE BRANCHLENGTHS)],
+                    @args);
   defined $aln && $self->alignment($aln);
   defined $tree && $self->tree($tree, branchLengths => ($ubl || 0) );
   defined $st  && $self->save_tempfiles($st);
@@ -352,9 +352,9 @@ sub new {
   $self->set_default_parameters();
   if( defined $params ) {
       if( ref($params) !~ /HASH/i ) {
-	  $self->warn("Must provide a valid hash ref for parameter -FLAGS");
+      $self->warn("Must provide a valid hash ref for parameter -FLAGS");
       } else {
-	  map { $self->set_parameter($_, $$params{$_}) } keys %$params;
+      map { $self->set_parameter($_, $$params{$_}) } keys %$params;
       }
   }
   return $self;
@@ -369,7 +369,7 @@ sub new {
            the alignment parameter must have been set
  Returns : value of rundir
  Args    : L<Bio::Align::AlignI> object,
-	   L<Bio::Tree::TreeI> object [optional]
+       L<Bio::Tree::TreeI> object [optional]
 
 =cut
 
@@ -391,10 +391,10 @@ sub prepare{
        $tempseqfile = $aln;
    } else {
        ($tempseqFH,$tempseqfile) = $self->io->tempfile
-	   ('-dir' => $tempdir,
-	    UNLINK => ($self->save_tempfiles ? 0 : 1));
+       ('-dir' => $tempdir,
+        UNLINK => ($self->save_tempfiles ? 0 : 1));
        my $alnout = Bio::AlignIO->new('-format'      => 'phylip',
-				     '-fh'          => $tempseqFH,
+                     '-fh'          => $tempseqFH,
                                      '-interleaved' => 0,
                                      '-idlength'    => $MINNAMELEN > $aln->maxdisplayname_length() ? $MINNAMELEN : $aln->maxdisplayname_length() +1);
 
@@ -416,17 +416,17 @@ sub prepare{
    if( $tree ) {
        my ($temptreeFH,$temptreefile);
        if( ! ref($tree) && -e $tree ) {
-	   $temptreefile = $tree;
+       $temptreefile = $tree;
        } else {
-	   ($temptreeFH,$temptreefile) = $self->io->tempfile
-	       ('-dir' => $tempdir,
-		UNLINK => ($self->save_tempfiles ? 0 : 1));
+       ($temptreeFH,$temptreefile) = $self->io->tempfile
+           ('-dir' => $tempdir,
+        UNLINK => ($self->save_tempfiles ? 0 : 1));
 
-	   my $treeout = Bio::TreeIO->new('-format' => 'newick',
-					  '-fh'     => $temptreeFH);
-	   $treeout->write_tree($tree);
-	   $treeout->close();
-	   close($temptreeFH);
+       my $treeout = Bio::TreeIO->new('-format' => 'newick',
+                      '-fh'     => $temptreeFH);
+       $treeout->write_tree($tree);
+       $treeout->close();
+       close($temptreeFH);
        }
        print CODEML "treefile = $temptreefile\n";
    }
@@ -456,7 +456,7 @@ sub prepare{
            the alignment parameter must have been set
  Returns : Return code, L<Bio::Tools::Phylo::PAML>
  Args    : L<Bio::Align::AlignI> object,
-	   L<Bio::Tree::TreeI> object [optional]
+       L<Bio::Tree::TreeI> object [optional]
 
 
 =cut
@@ -475,24 +475,24 @@ sub run {
        $self->throw("unable to find or run executable for 'codeml'") unless $codemlexe && -e $codemlexe && -x _;
        my $run;
        if( $self->{'_branchLengths'} ) {
-	   open($run, "echo $self->{'_branchLengths'} | $codemlexe |") or $self->throw("Cannot open exe $codemlexe");
+       open($run, "echo $self->{'_branchLengths'} | $codemlexe |") or $self->throw("Cannot open exe $codemlexe");
        } else {
-	   open($run, "$codemlexe |") or $self->throw("Cannot open exe $codemlexe");
+       open($run, "$codemlexe |") or $self->throw("Cannot open exe $codemlexe");
        }
        my @output = <$run>;
        $exit_status = close($run);
        $self->error_string(join('',@output));
        if( (grep { /\berr(or)?: /io } @output)  || !$exit_status) {
-	   $self->warn("There was an error - see error_string for the program output");
-	   $rc = 0;
+       $self->warn("There was an error - see error_string for the program output");
+       $rc = 0;
        }
        eval {
-	   $parser = Bio::Tools::Phylo::PAML->new(-file => "$tmpdir/$outfile",
-						  -verbose => $self->verbose,
-						  -dir => "$tmpdir");
+       $parser = Bio::Tools::Phylo::PAML->new(-file => "$tmpdir/$outfile",
+                          -verbose => $self->verbose,
+                          -dir => "$tmpdir");
        };
        if( $@ ) {
-	   $self->warn($self->error_string);
+       $self->warn($self->error_string);
        }
        chdir($cwd);
    }
@@ -537,12 +537,12 @@ sub alignment{
 
    if( defined $aln ) {
        if( -e $aln ) {
-	   $self->{'_alignment'} = $aln;
+       $self->{'_alignment'} = $aln;
        } elsif( !ref($aln) || ! $aln->isa('Bio::Align::AlignI') ) {
-	   $self->warn("Must specify a valid Bio::Align::AlignI object to the alignment function not $aln");
-	   return undef;
+       $self->warn("Must specify a valid Bio::Align::AlignI object to the alignment function not $aln");
+       return undef;
        } else {
-	   $self->{'_alignment'} = $aln;
+       $self->{'_alignment'} = $aln;
        }
    }
    return  $self->{'_alignment'};
@@ -569,15 +569,15 @@ sub tree {
    my ($self, $tree, %params) = @_;
    if( defined $tree ) {
        if( ! ref($tree) || ! $tree->isa('Bio::Tree::TreeI') ) {
-	   $self->warn("Must specify a valid Bio::Tree::TreeI object to the alignment function");
+       $self->warn("Must specify a valid Bio::Tree::TreeI object to the alignment function");
        }
        $self->{'_tree'} = $tree;
        if ( defined $params{'_branchLengths'} ) {
-	 my $ubl = $params{'_branchLengths'};
-	 if ($ubl !~ m/^(0|1|2)$/) {
-	   $self->throw("The branchLengths parameter to tree() must be 0 (ignore), 1 (initial values) or 2 (fixed values) only");
-	 }
-	 $self->{'_branchLengths'} = $ubl;
+     my $ubl = $params{'_branchLengths'};
+     if ($ubl !~ m/^(0|1|2)$/) {
+       $self->throw("The branchLengths parameter to tree() must be 0 (ignore), 1 (initial values) or 2 (fixed values) only");
+     }
+     $self->{'_branchLengths'} = $ubl;
        }
    }
    return $self->{'_tree'};
@@ -643,7 +643,7 @@ sub set_parameter{
  Usage   : $codeml->set_default_parameters(0);
  Function: (Re)set the default parameters from the defaults
            (the first value in each array in the
-	    %VALIDVALUES class variable)
+        %VALIDVALUES class variable)
  Returns : none
  Args    : boolean: keep existing parameter values
 
@@ -658,9 +658,9 @@ sub set_default_parameters{
        # skip if we want to keep old values and it is already set
        next if( defined $self->{'_codemlparams'}->{$param} && $keepold);
        if(ref($val)=~/ARRAY/i ) {
-	   $self->{'_codemlparams'}->{$param} = $val->[0];
+       $self->{'_codemlparams'}->{$param} = $val->[0];
        }  else {
-	   $self->{'_codemlparams'}->{$param} = $val;
+       $self->{'_codemlparams'}->{$param} = $val;
        }
    }
 }
@@ -717,7 +717,7 @@ sub no_param_checks{
 sub outfile_name {
     my $self = shift;
     if( @_ ) {
-	return $self->{'_codemlparams'}->{'outfile'} = shift @_;
+    return $self->{'_codemlparams'}->{'outfile'} = shift @_;
     }
     unless (defined $self->{'_codemlparams'}->{'outfile'}) {
         $self->{'_codemlparams'}->{'outfile'} = 'mlc';
@@ -761,7 +761,7 @@ sub outfile_name {
 sub DESTROY {
     my $self= shift;
     unless ( $self->save_tempfiles ) {
-	$self->cleanup();
+    $self->cleanup();
     }
     $self->SUPER::DESTROY();
 }

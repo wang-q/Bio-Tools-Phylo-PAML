@@ -21,7 +21,7 @@ use Bio::Tools::Phylo::PAML;
   use Bio::Tools::Run::Phylo::PAML::Yn00;
   use Bio::AlignIO;
   my $alignio = Bio::AlignIO->new(-format => 'phylip',
-  	 		         -file   => 't/data/gf-s85.phylip');
+                        -file   => 't/data/gf-s85.phylip');
   my $aln = $alignio->next_aln;
 
   my $yn = Bio::Tools::Run::Phylo::PAML::Yn00->new();
@@ -62,36 +62,36 @@ BEGIN {
     $MINNAMELEN = 25;
     $PROGRAMNAME = 'yn00'  . ($^O =~ /mswin/i ?'.exe':'');
     if( defined $ENV{'PAMLDIR'} ) {
-	$PROGRAM = Bio::Root::IO->catfile($ENV{'PAMLDIR'},$PROGRAMNAME);
+    $PROGRAM = Bio::Root::IO->catfile($ENV{'PAMLDIR'},$PROGRAMNAME);
     }
     # valid values for parameters, the default one is always
     # the first one in the array
     # much of the documentation here is lifted directly from the codeml.ctl
     # example file provided with the package
     %VALIDVALUES = (
-		     'noisy'   => [ 0..3,9],
-		     'verbose' => [ 0,1,2], # 0:concise, 1:detailed, 2:too much
+             'noisy'   => [ 0..3,9],
+             'verbose' => [ 0,1,2], # 0:concise, 1:detailed, 2:too much
 
-		     'weighting' => [0,1], # weighting pathways between codons
-		     'commonf3x4' => [0,1], # use same f3x4 for all sites
+             'weighting' => [0,1], # weighting pathways between codons
+             'commonf3x4' => [0,1], # use same f3x4 for all sites
 
-		     # (icode) genetic code
-		     # 0:universal code
-		     # 1:mamalian mt
-		     # 2:yeast mt
-		     # 3:mold mt,
-		     # 4:invertebrate mt
-		     # 5:ciliate nuclear
-		     # 6:echinoderm mt
-		     # 7:euplotid mt
-		     # 8:alternative yeast nu.
-		     # 9:ascidian mt
-		     #10:blepharisma nu
-		     # these correspond to 1-11 in the genbank transl table
+             # (icode) genetic code
+             # 0:universal code
+             # 1:mamalian mt
+             # 2:yeast mt
+             # 3:mold mt,
+             # 4:invertebrate mt
+             # 5:ciliate nuclear
+             # 6:echinoderm mt
+             # 7:euplotid mt
+             # 8:alternative yeast nu.
+             # 9:ascidian mt
+             #10:blepharisma nu
+             # these correspond to 1-11 in the genbank transl table
 
-		     'icode'    => [ 0..10],
-		     'ndata'    => [1..10],
-		     );
+             'icode'    => [ 0..10],
+             'ndata'    => [1..10],
+             );
 }
 
 
@@ -140,7 +140,7 @@ sub new {
 
   my $self = $class->SUPER::new(@args);
   my ($aln,$st) = $self->_rearrange([qw(ALIGNMENT SAVE_TEMPFILES)],
-				    @args);
+                    @args);
   defined $aln && $self->alignment($aln);
   defined $st  && $self->save_tempfiles($st);
 
@@ -179,12 +179,12 @@ sub run{
        $tempseqfile = $aln;
    } else {
        ($tempseqFH,$tempseqfile) = $self->io->tempfile
-	   ('-dir' => $tmpdir,
-	    UNLINK => ($self->save_tempfiles ? 0 : 1));
+       ('-dir' => $tmpdir,
+        UNLINK => ($self->save_tempfiles ? 0 : 1));
        my $alnout = Bio::AlignIO->new('-format'      => 'phylip',
-				     '-fh'          => $tempseqFH,
-				     '-interleaved' => 0,
-				     '-idlength'    => $MINNAMELEN > $aln->maxdisplayname_length() ? $MINNAMELEN : $aln->maxdisplayname_length() +1);
+                     '-fh'          => $tempseqFH,
+                     '-interleaved' => 0,
+                     '-idlength'    => $MINNAMELEN > $aln->maxdisplayname_length() ? $MINNAMELEN : $aln->maxdisplayname_length() +1);
 
        $alnout->write_aln($aln);
        $alnout->close();
@@ -220,23 +220,23 @@ sub run{
        $exit_status = close(RUN);
        $self->error_string(join('',@output));
        if( (grep { /\berr(or)?: /io } @output) || !$exit_status ) {
-	   $self->warn("There was an error - see error_string for the program output");
-	   $rc = 0;
+       $self->warn("There was an error - see error_string for the program output");
+       $rc = 0;
        }
        eval {
-	   $parser = Bio::Tools::Phylo::PAML->new(-file => "$tmpdir/mlc",
-						 -dir => "$tmpdir");
+       $parser = Bio::Tools::Phylo::PAML->new(-file => "$tmpdir/mlc",
+                         -dir => "$tmpdir");
 
        };
        if( $@ ) {
-	   $self->warn($self->error_string);
+       $self->warn($self->error_string);
        }
        chdir($cwd);
    }
    if( $self->verbose > 0 ) {
        open(IN, "$tmpdir/mlc");
        while(<IN>) {
-	   $self->debug($_);
+       $self->debug($_);
        }
    }
 
@@ -284,8 +284,8 @@ sub alignment{
    my ($self,$aln) = @_;
    if( defined $aln ) {
        if( !ref($aln) || ! $aln->isa('Bio::Align::AlignI') ) {
-	   $self->warn("Must specify a valid Bio::Align::AlignI object to the alignment function");
-	   return undef;
+       $self->warn("Must specify a valid Bio::Align::AlignI object to the alignment function");
+       return undef;
        }
        $self->{'_alignment'} = $aln;
    }
@@ -336,8 +336,8 @@ sub set_parameter{
        scalar @{$VALIDVALUES{$param}} > 0 ) {
 
        unless ( grep {$value} @{ $VALIDVALUES{$param} } ) {
-	   $self->warn("parameter $param specified value $value is not recognized, please see the documentation and the code for this module or set the no_param_checks to a true value");
-	   return 0;
+       $self->warn("parameter $param specified value $value is not recognized, please see the documentation and the code for this module or set the no_param_checks to a true value");
+       return 0;
        }
    }
    $self->{'_codemlparams'}->{$param} = $value;
@@ -350,7 +350,7 @@ sub set_parameter{
  Usage   : $codeml->set_default_parameters(0);
  Function: (Re)set the default parameters from the defaults
            (the first value in each array in the
-	    %VALIDVALUES class variable)
+        %VALIDVALUES class variable)
  Returns : none
  Args    : boolean: keep existing parameter values
 
@@ -365,9 +365,9 @@ sub set_default_parameters{
        # skip if we want to keep old values and it is already set
        next if( defined $self->{'_codemlparams'}->{$param} && $keepold);
        if(ref($val)=~/ARRAY/i ) {
-	   $self->{'_codemlparams'}->{$param} = $val->[0];
+       $self->{'_codemlparams'}->{$param} = $val->[0];
        }  else {
-	   $self->{'_codemlparams'}->{$param} = $val;
+       $self->{'_codemlparams'}->{$param} = $val;
        }
    }
 }

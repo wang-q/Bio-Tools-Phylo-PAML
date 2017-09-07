@@ -89,7 +89,7 @@ BEGIN {
     $MINNAMELEN = 25;
     $PROGRAMNAME = 'evolver' . ($^O =~ /mswin/i ?'.exe':'');
     if( defined $ENV{'PAMLDIR'} ) {
-	$PROGRAM = Bio::Root::IO->catfile($ENV{'PAMLDIR'},$PROGRAMNAME). ($^O =~ /mswin/i ?'.exe':'');;
+    $PROGRAM = Bio::Root::IO->catfile($ENV{'PAMLDIR'},$PROGRAMNAME). ($^O =~ /mswin/i ?'.exe':'');;
     }
 
     # valid values for parameters, the default one is always
@@ -191,7 +191,7 @@ sub new {
 #   $self->{'_branchLengths'} = 0;
   my ($tree, $st, $params, $exe)
       = $self->_rearrange([qw(TREE SAVE_TEMPFILES PARAMS EXECUTABLE)],
-				    @args);
+                    @args);
   defined $tree && $self->tree($tree);
   defined $st  && $self->save_tempfiles($st);
   defined $exe && $self->executable($exe);
@@ -199,9 +199,9 @@ sub new {
   $self->set_default_parameters();
   if( defined $params ) {
       if( ref($params) !~ /HASH/i ) {
-	  $self->warn("Must provide a valid hash ref for parameter -FLAGS");
+      $self->warn("Must provide a valid hash ref for parameter -FLAGS");
       } else {
-	  map { $self->set_parameter($_, $$params{$_}) } keys %$params;
+      map { $self->set_parameter($_, $$params{$_}) } keys %$params;
       }
   }
   return $self;
@@ -216,7 +216,7 @@ sub new {
            the alignment parameter must have been set
  Returns : value of rundir
  Args    : L<Bio::Align::AlignI> object,
-	   L<Bio::Tree::TreeI> object [optional]
+       L<Bio::Tree::TreeI> object [optional]
 
 =cut
 
@@ -247,10 +247,10 @@ sub prepare {
    #        $tempseqfile = $aln;
    #    } else {
    #        ($tempseqFH,$tempseqfile) = $self->io->tempfile
-   # 	   ('-dir' => $tempdir,
-   # 	    UNLINK => ($self->save_tempfiles ? 0 : 1));
+   #        ('-dir' => $tempdir,
+   #         UNLINK => ($self->save_tempfiles ? 0 : 1));
    #        my $alnout = Bio::AlignIO->new('-format'      => 'phylip',
-   # 				     '-fh'          => $tempseqFH,
+   #                      '-fh'          => $tempseqFH,
    #                                      '-interleaved' => 0,
    #                                      '-idlength'    => $MINNAMELEN > $aln->maxdisplayname_length() ? $MINNAMELEN : $aln->maxdisplayname_length() +1);
    #        $alnout->write_aln($aln);
@@ -338,7 +338,7 @@ sub prepare {
            the alignment parameter must have been set
  Returns : Return code, L<Bio::Tools::Phylo::PAML>
  Args    : L<Bio::Align::AlignI> object,
-	   L<Bio::Tree::TreeI> object [optional]
+       L<Bio::Tree::TreeI> object [optional]
 
 =cut
 
@@ -411,12 +411,12 @@ sub alignment{
 
    if( defined $aln ) {
        if( -e $aln ) {
-	   $self->{'_alignment'} = $aln;
+       $self->{'_alignment'} = $aln;
        } elsif( !ref($aln) || ! $aln->isa('Bio::Align::AlignI') ) {
-	   $self->warn("Must specify a valid Bio::Align::AlignI object to the alignment function not $aln");
-	   return undef;
+       $self->warn("Must specify a valid Bio::Align::AlignI object to the alignment function not $aln");
+       return undef;
        } else {
-	   $self->{'_alignment'} = $aln;
+       $self->{'_alignment'} = $aln;
        }
    }
    return  $self->{'_alignment'};
@@ -444,16 +444,16 @@ sub tree {
    my ($self, $tree, %params) = @_;
    if( defined $tree ) {
        if( ! ref($tree) || ! $tree->isa('Bio::Tree::TreeI') ) {
-	   $self->warn("Must specify a valid Bio::Tree::TreeI object to the alignment function");
+       $self->warn("Must specify a valid Bio::Tree::TreeI object to the alignment function");
        }
        $self->{'_tree'} = $tree;
        # FIXME: I think we dont need this in Evolver
 #        if ( defined $params{'_branchLengths'} ) {
-# 	 my $ubl = $params{'_branchLengths'};
-# 	 if ($ubl !~ m/^(0|1|2)$/) {
-# 	   $self->throw("The branchLengths parameter to tree() must be 0 (ignore), 1 (initial values) or 2 (fixed values) only");
-# 	 }
-# 	 $self->{'_branchLengths'} = $ubl;
+#      my $ubl = $params{'_branchLengths'};
+#      if ($ubl !~ m/^(0|1|2)$/) {
+#        $self->throw("The branchLengths parameter to tree() must be 0 (ignore), 1 (initial values) or 2 (fixed values) only");
+#      }
+#      $self->{'_branchLengths'} = $ubl;
 #        }
    }
    return $self->{'_tree'};
@@ -519,7 +519,7 @@ sub set_parameter{
  Usage   : $evolver->set_default_parameters(0);
  Function: (Re)set the default parameters from the defaults
            (the first value in each array in the
-	    %VALIDVALUES class variable)
+        %VALIDVALUES class variable)
  Returns : none
  Args    : boolean: keep existing parameter values
 
@@ -534,9 +534,9 @@ sub set_default_parameters{
        # skip if we want to keep old values and it is already set
        next if( defined $self->{'_evolverparams'}->{$param} && $keepold);
        if(ref($val)=~/ARRAY/i ) {
-	   $self->{'_evolverparams'}->{$param} = $val->[0];
+       $self->{'_evolverparams'}->{$param} = $val->[0];
        }  else {
-	   $self->{'_evolverparams'}->{$param} = $val;
+       $self->{'_evolverparams'}->{$param} = $val;
        }
    }
 }
@@ -661,7 +661,7 @@ sub get_CodonFreqs{
 sub DESTROY {
     my $self= shift;
     unless ( $self->save_tempfiles ) {
-	$self->cleanup();
+    $self->cleanup();
     }
     $self->SUPER::DESTROY();
 }

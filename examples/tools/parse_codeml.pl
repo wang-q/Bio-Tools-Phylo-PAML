@@ -5,7 +5,7 @@ use Bio::Tools::Phylo::PAML;
 use Bio::Root::IO;
 
 my $parser = new Bio::Tools::Phylo::PAML(-file    => shift,
-					 -verbose => shift);
+                                         -verbose => shift);
 
 my $result = $parser->next_result;
 my @otus = $result->get_seqs();
@@ -22,16 +22,16 @@ my $NGmatrix = $result->get_NGmatrix();
 $MLmatrix = $result->get_MLmatrix();
 $NGmatrix = $result->get_NGmatrix();
 for( my $i=0;$i<scalar @$MLmatrix;$i++) {
-	for( my $j = $i+1; $j < scalar @{$MLmatrix->[$i]}; $j++ ) {
-		printf "The ML omega ratio for sequences %s vs %s was: %g\n",
-		  $otus[$i]->id, $otus[$j]->id, $MLmatrix->[$i]->[$j]->{omega};
-	}
+    for( my $j = $i+1; $j < scalar @{$MLmatrix->[$i]}; $j++ ) {
+        printf "The ML omega ratio for sequences %s vs %s was: %g\n",
+          $otus[$i]->id, $otus[$j]->id, $MLmatrix->[$i]->[$j]->{omega};
+    }
 }
 
 for( my $i=0;$i<scalar @$MLmatrix;$i++) {
-	for( my $j = $i+1; $j < scalar @{$MLmatrix->[$i]}; $j++ ) {
+    for( my $j = $i+1; $j < scalar @{$MLmatrix->[$i]}; $j++ ) {
 
-		printf "The NG omega ratio for sequences %s vs %s was: %g\n",
-		  $otus[$i]->id, $otus[$j]->id, $NGmatrix->[$i]->[$j]->{'omega'};
-	}
+        printf "The NG omega ratio for sequences %s vs %s was: %g\n",
+          $otus[$i]->id, $otus[$j]->id, $NGmatrix->[$i]->[$j]->{'omega'};
+    }
 }

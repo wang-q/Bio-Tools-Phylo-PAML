@@ -419,11 +419,11 @@ sub _parse_summary {
     while ( $_ = $self->_readline ) {
         push @lines, $_;
         if (m/^($SEQTYPES) \s+                 # seqtype: CODONML, AAML, BASEML, CODON2AAML, YN00, etc
-	     (?: \(in \s+ ([^\)]+?) \s* \) \s* )?  # version: "paml 3.12 February 2002"; not present < 3.1 or YN00
-	     (\S+) \s*                             # tree filename
-	     (?: (.+?) )?                          # model description (not there in YN00)
-	     \s* $                                 # trim any trailing space
-	    /ox
+         (?: \(in \s+ ([^\)]+?) \s* \) \s* )?  # version: "paml 3.12 February 2002"; not present < 3.1 or YN00
+         (\S+) \s*                             # tree filename
+         (?: (.+?) )?                          # model description (not there in YN00)
+         \s* $                                 # trim any trailing space
+        /ox
           )
         {
             @{ $self->{'_summary'} }{qw(seqtype version seqfile model)} =
@@ -445,8 +445,8 @@ sub _parse_summary {
             last;
         }
         elsif ((m/\s+?\d+?\s+?\d+?/) && ( $self->{'_already_parsed_seqs'} != 1 )) {
-			$self->_parse_seqs;
-		}
+            $self->_parse_seqs;
+        }
         elsif (m/^Data set \d$/) {
             $self->{'_summary'} = {};
             $self->{'_summary'}->{'multidata'}++;
@@ -608,8 +608,8 @@ sub _parse_aa_freqs {
         }
         elsif (
             /^\#\s+constant\s+sites\:\s+
-		 (\d+)\s+ # constant sites
-		 \(\s*([\d\.]+)\s*\%\s*\)/x
+         (\d+)\s+ # constant sites
+         \(\s*([\d\.]+)\s*\%\s*\)/x
           )
         {
             $self->{'_summary'}->{'stats'}->{'constant_sites'}            = $1;
@@ -720,7 +720,7 @@ sub _parse_patterns {
         }
         elsif ($patternct) {
 
-            #	    last unless ( @patterns == $patternct );
+            #        last unless ( @patterns == $patternct );
             last if (/^\s+$/);
             s/^\s+//;
             push @patterns, split;
@@ -733,7 +733,7 @@ sub _parse_patterns {
         }
         else {
 
-            #	    $self->debug("Unknown line: $_");
+            #        $self->debug("Unknown line: $_");
         }
     }
     $self->{'_summary'}->{'patterns'} = {
@@ -804,7 +804,7 @@ sub _parse_distmat {
     my ($self) = @_;
     my @results;
     my $ver = 3.14;
-	my $firstseq, my $secondseq;
+    my $firstseq, my $secondseq;
 
     while ( defined( $_ = $self->_readline ) ) {
         next if /^\s+$/;
@@ -812,13 +812,13 @@ sub _parse_distmat {
         # We need to get the names of the sequences if this is from YN00:
         if (/^\(A\)\sNei-Gojobori\s\(1986\)\smethod/) {
             $ver = 3.15;
-			while ( defined( $_ = $self->_readline ) ) {
-				if ($_ =~ m/.*\d+?\.\d+?\s*\(.*/) {
-					$secondseq = $_;
-					last;
-				}
-				$firstseq = $_;
-			}
+            while ( defined( $_ = $self->_readline ) ) {
+                if ($_ =~ m/.*\d+?\.\d+?\s*\(.*/) {
+                    $secondseq = $_;
+                    last;
+                }
+                $firstseq = $_;
+            }
         }
         last;
     }
@@ -833,14 +833,14 @@ sub _parse_distmat {
     }
     my $seqct = 0;
     my @seqs;
-	if ( $self->{'_summary'}->{'seqtype'} eq 'YN00' ) {
-		if ($firstseq) {
-			$firstseq =~ s/(.+?)\s+.*/$1/;
-			$secondseq =~ s/(.+?)\s+.*/$1/;
-			chomp $firstseq;
-			chomp $secondseq;
-			push @seqs, Bio::PrimarySeq->new( -display_id => $firstseq );
-			push @seqs, Bio::PrimarySeq->new( -display_id => $secondseq );
+    if ( $self->{'_summary'}->{'seqtype'} eq 'YN00' ) {
+        if ($firstseq) {
+            $firstseq =~ s/(.+?)\s+.*/$1/;
+            $secondseq =~ s/(.+?)\s+.*/$1/;
+            chomp $firstseq;
+            chomp $secondseq;
+            push @seqs, Bio::PrimarySeq->new( -display_id => $firstseq );
+            push @seqs, Bio::PrimarySeq->new( -display_id => $secondseq );
         }
     }
     while ( defined( $_ = $self->_readline ) ) {
@@ -854,9 +854,9 @@ sub _parse_distmat {
         }
         else {
             $_ =~ m/(.+?)\s*(-*\d+?\.\d+?.*)/;
- 	        $seq = $1;
- 		$rest = $2;
-	}
+            $seq = $1;
+            $rest = $2;
+        }
         $rest = '' unless defined $rest;    # get rid of empty messages
         my $j = 0;
         if ( $self->{'_summary'}->{'seqtype'} eq 'YN00' ) {
@@ -887,8 +887,8 @@ sub _parse_PairwiseCodon {
     my ( $a, $b, $log, $model, $t, $kappa, $omega, $fixedkappa );
     # check to see if we have a fixed kappa:
     if ( $self->{'_summary'}->{'model'} =~ /kappa = (\d+?\.\d+?) fixed/) {
-		$fixedkappa = $1;
-	}
+        $fixedkappa = $1;
+    }
     while ( defined( $_ = $self->_readline ) ) {
         if (/^pairwise comparison, codon frequencies\:\s*(\S+)\./) {
             $model = $1;
@@ -909,8 +909,8 @@ sub _parse_PairwiseCodon {
                 ( $t, $kappa, $omega ) = split;
                 # if there was a fixed kappa, there will only be two values here ($t, $omega) and $kappa = $fixedkappa.
                 if ($omega eq "") {
-                	$omega = $kappa;
-                	$kappa = $fixedkappa;
+                    $omega = $kappa;
+                    $kappa = $fixedkappa;
                 }
             }
         }
@@ -918,23 +918,23 @@ sub _parse_PairwiseCodon {
         # t= 0.1904  S=     5.8  N=   135.2  dN/dS= 0.1094  dN= 0.0476  dS= 0.4353
         # OR lines like (note last field; this includes a fix for bug #3040)
         # t= 0.0439  S=     0.0  N=   141.0  dN/dS= 0.1626  dN= 0.0146  dS=    nan
-		elsif (m/^t\=\s*(\d+(\.\d+)?)\s+/)
+        elsif (m/^t\=\s*(\d+(\.\d+)?)\s+/)
         {
-        	# Breaking out each piece individually so that you can see
-        	# what each regexp actually looks for
-        	my $parse_string = $_;
-        	$parse_string =~ m/.*t\s*\=\s*(\d+?\.\d+?)\s/;
-        	my $temp_t = $1;
-        	$parse_string =~ m/\sS\s*\=\s*(\d+?\.\d+?)\s/;
-        	my $temp_S = $1;
-         	$parse_string =~ m/\sN\s*\=\s*(\d+?\.\d+?)\s/;
-        	my $temp_N = $1;
-         	$parse_string =~ m/\sdN\/dS\s*\=\s*(\d+?\.\d+?)\s/;
-        	my $temp_omega = $1;
-         	$parse_string =~ m/\sdN\s*\=\s*(\d+?\.\d+?)\s/;
-        	my $temp_dN = $1;
-         	$parse_string =~ m/\sdS\s*\=\s*(.+)\s/;
-        	my $temp_dS = $1;
+            # Breaking out each piece individually so that you can see
+            # what each regexp actually looks for
+            my $parse_string = $_;
+            $parse_string =~ m/.*t\s*\=\s*(\d+?\.\d+?)\s/;
+            my $temp_t = $1;
+            $parse_string =~ m/\sS\s*\=\s*(\d+?\.\d+?)\s/;
+            my $temp_S = $1;
+             $parse_string =~ m/\sN\s*\=\s*(\d+?\.\d+?)\s/;
+            my $temp_N = $1;
+             $parse_string =~ m/\sdN\/dS\s*\=\s*(\d+?\.\d+?)\s/;
+            my $temp_omega = $1;
+             $parse_string =~ m/\sdN\s*\=\s*(\d+?\.\d+?)\s/;
+            my $temp_dN = $1;
+             $parse_string =~ m/\sdS\s*\=\s*(.+)\s/;
+            my $temp_dS = $1;
             $result[ $b - 1 ]->[ $a - 1 ] = {
                 'lnL'   => $log,
                 't'     => defined $t && length($t) ? $t : $temp_t,
@@ -968,19 +968,19 @@ sub _parse_YN_Pairwise {
     while ( defined( $_ = $self->_readline ) ) {
         if (
             m/^\s+(\d+)\s+  # seq #
-	    (\d+)\s+        # seq #
-	    (\d+(\.\d+))\s+ # S
-	    (\d+(\.\d+))\s+ # N
-	    (\d+(\.\d+))\s+ # t
-	    (\d+(\.\d+))\s+ # kappa
-	    (\d+(\.\d+))\s+ # omega
-	    \-??(\d+(\.\d+))\s+ # dN
-	    \+\-\s+
-	    \-??(\d+(\.\d+))\s+ # dN SE
-	    \-??(\d+(\.\d+))\s+ # dS
-	    \+\-\s+
-	    \-??(\d+(\.\d+))\s+ # dS SE
-	    /ox
+        (\d+)\s+        # seq #
+        (\d+(\.\d+))\s+ # S
+        (\d+(\.\d+))\s+ # N
+        (\d+(\.\d+))\s+ # t
+        (\d+(\.\d+))\s+ # kappa
+        (\d+(\.\d+))\s+ # omega
+        \-??(\d+(\.\d+))\s+ # dN
+        \+\-\s+
+        \-??(\d+(\.\d+))\s+ # dN SE
+        \-??(\d+(\.\d+))\s+ # dS
+        \+\-\s+
+        \-??(\d+(\.\d+))\s+ # dS SE
+        /ox
           )
         {
 
@@ -1446,8 +1446,8 @@ sub _parse_nt_freqs {
         }
         elsif (
             /^\#\s+constant\s+sites\:\s+
-		 (\d+)\s+	# constant sites
-		 \(\s*([\d\.]+)\s*\%\s*\)/ox
+         (\d+)\s+    # constant sites
+         \(\s*([\d\.]+)\s*\%\s*\)/ox
           )
         {
             $self->{'_summary'}->{'stats'}->{'constant_sites'}            = $1;
@@ -1560,7 +1560,7 @@ sub _parse_rate_parametes {
         }
         elsif (
             m/^Rate\s+matrix\s+Q,\s+Average\s+Ts\/Tv\s+(\([^\)+]+\))?\s*\=\s+
-		 (\-?\d+\.\d+)/x
+         (\-?\d+\.\d+)/x
           )
         {
             $rate_parameters{'average_TsTv'} = $1;
@@ -1647,8 +1647,8 @@ sub _parse_rst {
                     }
                     while (
                         $ancestral =~ s/^([A-Z\-]{3})\s+([A-Z*])\s+ # codon AA
-			                (\S+)\s+                   # Prob
-			                \(([A-Z*])\s+(\S+)\)\s*//xg    # AA Prob
+                            (\S+)\s+                   # Prob
+                            \(([A-Z*])\s+(\S+)\)\s*//xg    # AA Prob
                       )
                     {
                         push @anc_site,

@@ -49,23 +49,23 @@ use base qw(Bio::Root::Root Bio::AnalysisResultI);
   # site         => which codon site this in the alignment
     @trees = $result->get_rst_trees;
     for my $t ( @trees ) {
-	for my $node ( $t->get_nodes ) {
-	    next unless $node->ancestor; # skip root node
-	    my @changes = $node->get_tag_values('changes');
-	    my $chgstr = '';
-	    for my $c ( @changes ) {
-		for my $k ( sort keys %$c ) {
-		    $chgstr .= "$k => $c->{$k} ";
-		}
-		$chgstr .= "\n\t";
-	    }
+    for my $node ( $t->get_nodes ) {
+        next unless $node->ancestor; # skip root node
+        my @changes = $node->get_tag_values('changes');
+        my $chgstr = '';
+        for my $c ( @changes ) {
+        for my $k ( sort keys %$c ) {
+            $chgstr .= "$k => $c->{$k} ";
+        }
+        $chgstr .= "\n\t";
+        }
 
-	    printf "node:%s n=%s s=%s\n\t%s\n",
-	    $node->id,
-	    $node->get_tag_values('n'),
-	    $node->get_tag_values('s'),
-	    $chgstr;
-	}
+        printf "node:%s n=%s s=%s\n\t%s\n",
+        $node->id,
+        $node->get_tag_values('n'),
+        $node->get_tag_values('s'),
+        $chgstr;
+    }
     }
 
   # Persite probabilities
@@ -134,68 +134,68 @@ sub new {
       $aamldistmat,
       $ntfreqs, $seqfile, $kappa_mat, $alpha_mat,
       $NSSitesresults,$input_params,$rst,$rst_persite,$rst_trees ) =
-	  $self->_rearrange([qw
-			     (TREES MLMATRIX
-			      SEQS NGMATRIX
-			      CODONPOS CODONFREQ
-			      VERSION MODEL PATTERNS
-			      STATS AAFREQ AADISTMAT
-			      AAMLDISTMAT
-			      NTFREQ SEQFILE
-			      KAPPA_DISTMAT
-			      ALPHA_DISTMAT
-			      NSSITESRESULTS
-			      INPUT_PARAMS
-			      RST RST_PERSITE RST_TREES)],
-			    @args);
+      $self->_rearrange([qw
+                 (TREES MLMATRIX
+                  SEQS NGMATRIX
+                  CODONPOS CODONFREQ
+                  VERSION MODEL PATTERNS
+                  STATS AAFREQ AADISTMAT
+                  AAMLDISTMAT
+                  NTFREQ SEQFILE
+                  KAPPA_DISTMAT
+                  ALPHA_DISTMAT
+                  NSSITESRESULTS
+                  INPUT_PARAMS
+                  RST RST_PERSITE RST_TREES)],
+                @args);
   $self->reset_seqs;
   if( $trees ) {
       if(ref($trees) !~ /ARRAY/i ) {
-	  $self->warn("Must provide a valid array reference to initialize trees");
+      $self->warn("Must provide a valid array reference to initialize trees");
       } else {
-	  foreach my $t ( @$trees ) {
-	      $self->add_tree($t);
-	  }
+      foreach my $t ( @$trees ) {
+          $self->add_tree($t);
+      }
       }
   }
   $self->{'_treeiterator'} = 0;
 
   if( $mlmat ) {
       if( ref($mlmat) !~ /ARRAY/i ) {
-	  $self->warn("Must provide a valid array reference to initialize MLmatrix");
+      $self->warn("Must provide a valid array reference to initialize MLmatrix");
       } else {
-	  $self->set_MLmatrix($mlmat);
+      $self->set_MLmatrix($mlmat);
       }
   }
   if( $seqs ) {
       if( ref($seqs) !~ /ARRAY/i ) {
-	  $self->warn("Must provide a valid array reference to initialize seqs");
+      $self->warn("Must provide a valid array reference to initialize seqs");
       } else {
-	  foreach my $s ( @$seqs ) {
-	      $self->add_seq($s);
-	  }
+      foreach my $s ( @$seqs ) {
+          $self->add_seq($s);
+      }
       }
   }
   if( $ngmatrix ) {
       if( ref($ngmatrix) !~ /ARRAY/i ) {
-	  $self->warn("Must provide a valid array reference to initialize NGmatrix");
+      $self->warn("Must provide a valid array reference to initialize NGmatrix");
       } else {
-	  $self->set_NGmatrix($ngmatrix);
+      $self->set_NGmatrix($ngmatrix);
       }
   }
   if( $codonfreq ) {
       if( ref($codonfreq) =~ /ARRAY/i ) {
-	  $self->set_CodonFreqs($codonfreq);
+      $self->set_CodonFreqs($codonfreq);
       } else {
-	  $self->warn("Must provide a valid array reference to initialize codonfreq");
+      $self->warn("Must provide a valid array reference to initialize codonfreq");
       }
   }
 
   if( $codonpos ) {
       if( ref($codonpos) !~ /ARRAY/i ) {
-	  $self->warn("Must provide a valid array reference to initialize codonpos");
+      $self->warn("Must provide a valid array reference to initialize codonpos");
       } else {
-	  $self->set_codon_pos_basefreq(@$codonpos);
+      $self->set_codon_pos_basefreq(@$codonpos);
       }
   }
 
@@ -204,27 +204,27 @@ sub new {
   $self->model($model)       if defined $model;
   if( defined $patterns ) {
       if( ref($patterns) =~ /HASH/i ) {
-	  $self->patterns($patterns);
+      $self->patterns($patterns);
       } else {
-	  $self->warn("Must provide a valid array reference to initialize patterns");
+      $self->warn("Must provide a valid array reference to initialize patterns");
       }
   }
 
   $self->{'_aafreqs'} = {};
   if( $aafreq ) {
       if( ref($aafreq) =~ /HASH/i ) {
-	  $self->set_AAFreqs($aafreq);
+      $self->set_AAFreqs($aafreq);
       } else {
-	  $self->warn("Must provide a valid hash reference to initialize aafreq");
+      $self->warn("Must provide a valid hash reference to initialize aafreq");
       }
   }
   if( $stats ) {
       if( ref($stats) =~ /HASH/i ) {
-	  while( my ($stat,$val) = each %$stats) {
-	      $self->add_stat($stat,$val);
-	  }
+      while( my ($stat,$val) = each %$stats) {
+          $self->add_stat($stat,$val);
+      }
       } else {
-	  $self->warn("Must provide a valid hash reference initialize stats");
+      $self->warn("Must provide a valid hash reference initialize stats");
       }
   }
   $self->set_AADistMatrix($aadistmat) if defined $aadistmat;
@@ -232,20 +232,20 @@ sub new {
 
   if( defined $NSSitesresults ) {
       if( ref($NSSitesresults) !~ /ARRAY/i ) {
-	  $self->warn("expected an arrayref for -NSSitesresults");
+      $self->warn("expected an arrayref for -NSSitesresults");
       } else {
-	  foreach my $m ( @$NSSitesresults ) {
-	      $self->add_NSSite_result($m);
-	  }
+      foreach my $m ( @$NSSitesresults ) {
+          $self->add_NSSite_result($m);
+      }
       }
   }
 
   $self->{'_ntfreqs'} = {};
   if( $ntfreqs ) {
       if( ref($ntfreqs) =~ /HASH/i ) {
-	  $self->set_NTFreqs($ntfreqs);
+      $self->set_NTFreqs($ntfreqs);
       } else {
-	  $self->warn("Must provide a valid hash reference to initialize ntfreq");
+      $self->warn("Must provide a valid hash reference to initialize ntfreq");
       }
   }
 
@@ -258,22 +258,22 @@ sub new {
 
   if( $input_params ) {
       if(  ref($input_params) !~ /HASH/i ) {
-	  $self->warn("Must provide a valid hash object for input_params\n");
+      $self->warn("Must provide a valid hash object for input_params\n");
       } else {
-	  while( my ($p,$v) = each %$input_params ) {
-	      $self->set_input_parameter($p,$v);
-	  }
+      while( my ($p,$v) = each %$input_params ) {
+          $self->set_input_parameter($p,$v);
+      }
       }
 
   }
   $self->reset_rst_seqs;
   if( $rst ) {
       if( ref($rst) =~ /ARRAY/i ) {
-	  for ( @$rst ) {
-	      $self->add_rst_seq($_);
-	  }
+      for ( @$rst ) {
+          $self->add_rst_seq($_);
+      }
       } else {
-	  $self->warn("Need a valid array ref for -rst option\n");
+      $self->warn("Need a valid array ref for -rst option\n");
       }
   }
   if( defined $rst_persite ) {
@@ -282,11 +282,11 @@ sub new {
   $self->reset_rst_trees;
   if( $rst_trees ) {
       if( ref($rst_trees) =~ /ARRAY/i ) {
-	  for ( @$rst_trees ) {
-	      $self->add_rst_tree($_);
-	  }
+      for ( @$rst_trees ) {
+          $self->add_rst_tree($_);
+      }
       } else {
-	  $self->warn("Need a valid array ref for -rst_trees option\n");
+      $self->warn("Need a valid array ref for -rst_trees option\n");
       }
   }
 
@@ -365,7 +365,7 @@ sub add_tree{
  Function: Set the ML Matrix
  Returns : none
  Args    : Arrayref to MLmatrix (must be arrayref to 2D matrix whic is
-	   lower triangle pairwise)
+       lower triangle pairwise)
 
 
 =cut
@@ -403,7 +403,7 @@ sub get_MLmatrix{
  Function: Set the Nei & Gojobori Matrix
  Returns : none
  Args    : Arrayref to NGmatrix (must be arrayref to 2D matrix whic is
-	   lower triangle pairwise)
+       lower triangle pairwise)
 
 
 =cut
@@ -450,8 +450,8 @@ sub add_seq{
    my ($self,$seq) = @_;
    if( $seq ) {
        unless( $seq->isa("Bio::PrimarySeqI") ) {
-	   $self->warn("Must provide a valid Bio::PrimarySeqI to add_seq");
-	   return;
+       $self->warn("Must provide a valid Bio::PrimarySeqI to add_seq");
+       return;
        }
        push @{$self->{'_seqs'}},$seq;
    }
@@ -505,14 +505,14 @@ sub get_seqs{
 sub set_codon_pos_basefreq {
     my ($self,@codonpos) = @_;
     if( scalar @codonpos != 3 ) {
-	$self->warn("invalid array to set_codon_pos_basefreq, must be an array of length 3");
-	return;
+    $self->warn("invalid array to set_codon_pos_basefreq, must be an array of length 3");
+    return;
     }
     foreach my $pos ( @codonpos ) {
-	if( ref($pos) !~ /HASH/i ||
-	    ! exists $pos->{'A'} ) {
-	    $self->warn("invalid array to set_codon_pos_basefreq, must be an array with hashreferences keyed on DNA bases, C,A,G,T");
-	}
+    if( ref($pos) !~ /HASH/i ||
+        ! exists $pos->{'A'} ) {
+        $self->warn("invalid array to set_codon_pos_basefreq, must be an array with hashreferences keyed on DNA bases, C,A,G,T");
+    }
     }
     $self->{'_codonposbasefreq'} = [@codonpos];
 }
@@ -627,7 +627,7 @@ sub set_AAFreqs{
 
    if( $aafreqs && ref($aafreqs) =~ /HASH/i ) {
        foreach my $seqname ( keys %{$aafreqs} ) {
-	   $self->{'_aafreqs'}->{$seqname} = $aafreqs->{$seqname};
+       $self->{'_aafreqs'}->{$seqname} = $aafreqs->{$seqname};
        }
    }
 }
@@ -674,7 +674,7 @@ sub set_NTFreqs{
 
    if( $freqs && ref($freqs) =~ /HASH/i ) {
        foreach my $seqname ( keys %{$freqs} ) {
-	   $self->{'_ntfreqs'}->{$seqname} = $freqs->{$seqname};
+       $self->{'_ntfreqs'}->{$seqname} = $freqs->{$seqname};
        }
    }
 }
@@ -1044,8 +1044,8 @@ sub add_rst_seq{
    my ($self,$seq) = @_;
    if( $seq ) {
        unless( $seq->isa("Bio::PrimarySeqI") ) {
-	   $self->warn("Must provide a valid Bio::PrimarySeqI to add_rst_seq");
-	   return;
+       $self->warn("Must provide a valid Bio::PrimarySeqI to add_rst_seq");
+       return;
        }
        push @{$self->{'_rstseqs'}},$seq;
    }
@@ -1100,8 +1100,8 @@ sub add_rst_tree{
    my ($self,$tree) = @_;
    if( $tree ) {
        unless( $tree->isa("Bio::Tree::TreeI") ) {
-	   $self->warn("Must provide a valid Bio::Tree::TreeI to add_rst_tree not $tree");
-	   return;
+       $self->warn("Must provide a valid Bio::Tree::TreeI to add_rst_tree not $tree");
+       return;
        }
        push @{$self->{'_rsttrees'}},$tree;
    }
