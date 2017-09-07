@@ -1,7 +1,6 @@
-# -*-Perl-*- Test Harness script for Bioperl
-# $Id$
-
+use utf8;
 use strict;
+use warnings;
 
 BEGIN {
     use lib '.';

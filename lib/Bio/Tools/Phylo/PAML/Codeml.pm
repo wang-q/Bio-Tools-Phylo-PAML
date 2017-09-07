@@ -1,7 +1,10 @@
 package Bio::Tools::Phylo::PAML::Codeml;
 
-use vars qw(@ISA);
+use utf8;
 use strict;
+use warnings;
+
+use vars qw(@ISA);
 
 use Bio::Root::Root;
 use Bio::Root::IO;

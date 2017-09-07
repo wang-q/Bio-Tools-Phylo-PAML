@@ -1,7 +1,10 @@
 package Bio::Tools::Phylo::PAML;
 
-use vars qw($RSTFILENAME);
+use utf8;
 use strict;
+use warnings;
+
+use vars qw($RSTFILENAME);
 
 use base qw(Bio::Root::Root Bio::Root::IO Bio::AnalysisParserI);
 

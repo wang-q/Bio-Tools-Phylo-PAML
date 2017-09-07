@@ -1,7 +1,10 @@
 package Bio::Installer::PAML;
 
-use vars qw(@ISA %DEFAULTS);
+use utf8;
 use strict;
+use warnings;
+
+use vars qw(@ISA %DEFAULTS);
 
 use Bio::Root::Root;
 use Bio::Installer::Generic;

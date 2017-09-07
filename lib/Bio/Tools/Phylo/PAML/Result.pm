@@ -1,6 +1,8 @@
 package Bio::Tools::Phylo::PAML::Result;
 
+use utf8;
 use strict;
+use warnings;
 
 use base qw(Bio::Root::Root Bio::AnalysisResultI);
 

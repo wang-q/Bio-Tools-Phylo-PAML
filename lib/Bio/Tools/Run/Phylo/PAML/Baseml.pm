@@ -1,7 +1,10 @@
 package Bio::Tools::Run::Phylo::PAML::Baseml;
 
-use vars qw(@ISA %VALIDVALUES $MINNAMELEN $PROGRAMNAME $PROGRAM);
+use utf8;
 use strict;
+use warnings;
+
+use vars qw(@ISA %VALIDVALUES $MINNAMELEN $PROGRAMNAME $PROGRAM);
 use Cwd;
 use Bio::AlignIO;
 use Bio::TreeIO;
