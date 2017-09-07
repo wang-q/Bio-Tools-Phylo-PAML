@@ -431,6 +431,10 @@ sub alignment{
    return $self->_alignment(@_);
 }
 
+=attr tree
+
+=cut
+
 sub tree {
     my $self = shift;
     return $self->_tree(@_);
