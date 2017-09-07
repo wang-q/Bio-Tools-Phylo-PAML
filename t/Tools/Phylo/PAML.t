@@ -13,7 +13,7 @@ BEGIN {
 	use_ok('Bio::Tools::Phylo::PAML');
 }
 
-my $inpaml = Bio::Tools::Phylo::PAML->new(-file => test_input_file('codeml.mlc'));
+my $inpaml = Bio::Tools::Phylo::PAML->new(-file => test_input_file('codeml_parse.mlc'));
 ok($inpaml);
 my $result = $inpaml->next_result;
 ok($result);
