@@ -57,7 +57,7 @@ documentation of the default values.
 
 =cut
 
-BEGIN { 
+BEGIN {
 
     $MINNAMELEN = 25;
     $PROGRAMNAME = 'yn00'  . ($^O =~ /mswin/i ?'.exe':'');
@@ -68,11 +68,11 @@ BEGIN {
     # the first one in the array
     # much of the documentation here is lifted directly from the codeml.ctl
     # example file provided with the package
-    %VALIDVALUES = ( 
+    %VALIDVALUES = (
 		     'noisy'   => [ 0..3,9],
 		     'verbose' => [ 0,1,2], # 0:concise, 1:detailed, 2:too much
 
-		     'weighting' => [0,1], # weighting pathways between codons 
+		     'weighting' => [0,1], # weighting pathways between codons
 		     'commonf3x4' => [0,1], # use same f3x4 for all sites
 
 		     # (icode) genetic code
@@ -88,8 +88,8 @@ BEGIN {
 		     # 9:ascidian mt
 		     #10:blepharisma nu
 		     # these correspond to 1-11 in the genbank transl table
-		     
-		     'icode'    => [ 0..10], 
+
+		     'icode'    => [ 0..10],
 		     'ndata'    => [1..10],
 		     );
 }
@@ -127,7 +127,7 @@ sub program_dir {
 
  Title   : new
  Usage   : my $obj = Bio::Tools::Run::Phylo::PAML::Yn00->new();
- Function: Builds a new Bio::Tools::Run::Phylo::PAML::Yn00 object 
+ Function: Builds a new Bio::Tools::Run::Phylo::PAML::Yn00 object
  Returns : Bio::Tools::Run::Phylo::PAML::Yn00
  Args    : -alignment => the L<Bio::Align::AlignI> object
            -save_tempfiles => boolean to save the generated tempfiles and
@@ -143,7 +143,7 @@ sub new {
 				    @args);
   defined $aln && $self->alignment($aln);
   defined $st  && $self->save_tempfiles($st);
-  
+
   $self->set_default_parameters();
   return $self;
 }
@@ -154,12 +154,12 @@ sub new {
  Usage   : $yn->run();
  Function: run the yn00 analysis using the default or updated parameters
            the alignment parameter must have been set
- Returns : 3 values, 
+ Returns : 3 values,
            $rc = 1 for success, 0 for errors
            hash reference of the Yang calculated Ka/Ks values
                     this is a set of pairwise observations keyed as
                     sequencenameA->sequencenameB->datatype
-           hash reference same as the previous one except it for the 
+           hash reference same as the previous one except it for the
            Nei and Gojobori calculated Ka,Ks,omega values
  Args    : none
 
@@ -169,33 +169,33 @@ sub new {
 sub run{
    my ($self,$aln) = @_;
    ($aln) ||= $self->alignment();
-   if( ! $aln ) { 
+   if( ! $aln ) {
        $self->warn("must have supplied a valid alignment file in order to run yn00");
        return 0;
    }
    my ($tmpdir) = $self->tempdir();
    my ($tempseqFH,$tempseqfile);
-   if( ! ref($aln) && -e $aln ) { 
+   if( ! ref($aln) && -e $aln ) {
        $tempseqfile = $aln;
-   } else { 
+   } else {
        ($tempseqFH,$tempseqfile) = $self->io->tempfile
-	   ('-dir' => $tmpdir, 
+	   ('-dir' => $tmpdir,
 	    UNLINK => ($self->save_tempfiles ? 0 : 1));
        my $alnout = Bio::AlignIO->new('-format'      => 'phylip',
 				     '-fh'          => $tempseqFH,
 				     '-interleaved' => 0,
 				     '-idlength'    => $MINNAMELEN > $aln->maxdisplayname_length() ? $MINNAMELEN : $aln->maxdisplayname_length() +1);
-       
+
        $alnout->write_aln($aln);
        $alnout->close();
-       undef $alnout;   
+       undef $alnout;
        close($tempseqFH);
        undef $tempseqFH;
-   } 
+   }
    # now let's print the yn.ctl file.
-   # many of the these programs are finicky about what the filename is 
+   # many of the these programs are finicky about what the filename is
    # and won't even run without the properly named file.  Ack
-   
+
    my $yn_ctl = "$tmpdir/yn00.ctl";
    open(YN, ">$yn_ctl") or $self->throw("cannot open $yn_ctl for writing");
    print YN "seqfile = $tempseqfile\n";
@@ -224,7 +224,7 @@ sub run{
 	   $rc = 0;
        }
        eval {
-	   $parser = Bio::Tools::Phylo::PAML->new(-file => "$tmpdir/mlc", 
+	   $parser = Bio::Tools::Phylo::PAML->new(-file => "$tmpdir/mlc",
 						 -dir => "$tmpdir");
 
        };
@@ -239,7 +239,7 @@ sub run{
 	   $self->debug($_);
        }
    }
-       
+
    unless ( $self->save_tempfiles ) {
       unlink("$yn_ctl");
       $self->cleanup();
@@ -282,8 +282,8 @@ sub error_string{
 
 sub alignment{
    my ($self,$aln) = @_;
-   if( defined $aln ) { 
-       if( !ref($aln) || ! $aln->isa('Bio::Align::AlignI') ) { 
+   if( defined $aln ) {
+       if( !ref($aln) || ! $aln->isa('Bio::Align::AlignI') ) {
 	   $self->warn("Must specify a valid Bio::Align::AlignI object to the alignment function");
 	   return undef;
        }
@@ -315,7 +315,7 @@ sub get_parameters{
  Title   : set_parameter
  Usage   : $codeml->set_parameter($param,$val);
  Function: Sets a codeml parameter, will be validated against
-           the valid values as set in the %VALIDVALUES class variable.  
+           the valid values as set in the %VALIDVALUES class variable.
            The checks can be ignored if on turns of param checks like this:
              $codeml->no_param_checks(1)
  Returns : boolean if set was success, if verbose is set to -1
@@ -328,13 +328,13 @@ sub get_parameters{
 
 sub set_parameter{
    my ($self,$param,$value) = @_;
-   if( ! defined $VALIDVALUES{$param} ) { 
+   if( ! defined $VALIDVALUES{$param} ) {
        $self->warn("unknown parameter $param will not set unless you force by setting no_param_checks to true");
        return 0;
-   } 
+   }
    if( ref( $VALIDVALUES{$param}) =~ /ARRAY/i &&
        scalar @{$VALIDVALUES{$param}} > 0 ) {
-       
+
        unless ( grep {$value} @{ $VALIDVALUES{$param} } ) {
 	   $self->warn("parameter $param specified value $value is not recognized, please see the documentation and the code for this module or set the no_param_checks to a true value");
 	   return 0;
@@ -349,7 +349,7 @@ sub set_parameter{
  Title   : set_default_parameters
  Usage   : $codeml->set_default_parameters(0);
  Function: (Re)set the default parameters from the defaults
-           (the first value in each array in the 
+           (the first value in each array in the
 	    %VALIDVALUES class variable)
  Returns : none
  Args    : boolean: keep existing parameter values
@@ -360,13 +360,13 @@ sub set_parameter{
 sub set_default_parameters{
    my ($self,$keepold) = @_;
    $keepold = 0 unless defined $keepold;
-   
+
    while( my ($param,$val) = each %VALIDVALUES ) {
        # skip if we want to keep old values and it is already set
        next if( defined $self->{'_codemlparams'}->{$param} && $keepold);
        if(ref($val)=~/ARRAY/i ) {
 	   $self->{'_codemlparams'}->{$param} = $val->[0];
-       }  else { 
+       }  else {
 	   $self->{'_codemlparams'}->{$param} = $val;
        }
    }
@@ -382,7 +382,7 @@ sub set_default_parameters{
  Title   : no_param_checks
  Usage   : $obj->no_param_checks($newval)
  Function: Boolean flag as to whether or not we should
-           trust the sanity checks for parameter values  
+           trust the sanity checks for parameter values
  Returns : value of no_param_checks
  Args    : newvalue (optional)
 
@@ -393,7 +393,7 @@ sub set_default_parameters{
 
  Title   : save_tempfiles
  Usage   : $obj->save_tempfiles($newval)
- Function: 
+ Function:
  Returns : value of save_tempfiles
  Args    : newvalue (optional)
 

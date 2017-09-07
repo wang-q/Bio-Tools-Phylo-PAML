@@ -40,7 +40,7 @@ use base qw(Bio::Root::Root);
 
  Title   : new
  Usage   : my $obj = Bio::Tools::Phylo::PAML::ModelResult->new();
- Function: Builds  a new Bio::Tools::Phylo::PAML::ModelResult object 
+ Function: Builds  a new Bio::Tools::Phylo::PAML::ModelResult object
  Returns : an instance of Bio::Tools::Phylo::PAML::ModelResult
  Args    : -model_num           => model number
            -model_description   => model description
@@ -50,15 +50,15 @@ use base qw(Bio::Root::Root);
            -neb_sites           => arrayref of sites under positive selection (by NEB analysis)
            -beb_sites           => arrayref of sites under positive selection (by BEB analysis)
            -trees               => arrayref of tree(s) data for this model
-           -shape_params        => hashref of parameters 
+           -shape_params        => hashref of parameters
                                    ('shape' => 'alpha',
-				    'gamma' => $g, 
-				    'r' => $r, 
-				    'f' => $f 
+				    'gamma' => $g,
+				    'r' => $r,
+				    'f' => $f
 				    )
                                     OR
 				    ( 'shape' => 'beta',
-				      'p' => $p, 
+				      'p' => $p,
 				      'q' => $q
 				     )
            -likelihood          => likelihood
@@ -79,7 +79,7 @@ sub new {
       $pos_sites,$neb_sites,$beb_sites,
       $num_site_classes, $shape_params,
       $dnds_classes,
-      $likelihood) =          $self->_rearrange([qw(MODEL_NUM 
+      $likelihood) =          $self->_rearrange([qw(MODEL_NUM
 						      MODEL_DESCRIPTION
 						      KAPPA
 						      TIME_USED
@@ -92,9 +92,9 @@ sub new {
 						      LIKELIHOOD)],
 						 @args);
   if( $trees ) {
-      if(ref($trees) !~ /ARRAY/i ) { 
+      if(ref($trees) !~ /ARRAY/i ) {
 	  $self->warn("Must provide a valid array reference to initialize trees");
-      } else { 
+      } else {
 	  foreach my $t ( @$trees ) {
 	      $self->add_tree($t);
 	  }
@@ -102,9 +102,9 @@ sub new {
   }
   $self->{'_treeiterator'} = 0;
   if( $pos_sites ) {
-      if(ref($pos_sites) !~ /ARRAY/i ) { 
+      if(ref($pos_sites) !~ /ARRAY/i ) {
 	  $self->warn("Must provide a valid array reference to initialize pos_sites");
-      } else { 
+      } else {
 	  foreach my $s ( @$pos_sites ) {
 	      if( ref($s) !~ /ARRAY/i ) {
 		  $self->warn("Need an array reference for each entry in the pos_sites object");
@@ -115,9 +115,9 @@ sub new {
       }
   }
   if( $beb_sites ) {
-    if(ref($beb_sites) !~ /ARRAY/i ) { 
+    if(ref($beb_sites) !~ /ARRAY/i ) {
 	  $self->warn("Must provide a valid array reference to initialize beb_sites");
-      } else { 
+      } else {
 	  foreach my $s ( @$beb_sites ) {
 	      if( ref($s) !~ /ARRAY/i ) {
 		  $self->warn("need an array ref for each entry in the beb_sites object");
@@ -128,9 +128,9 @@ sub new {
       }
   }
   if( $neb_sites ) {
-    if(ref($neb_sites) !~ /ARRAY/i ) { 
+    if(ref($neb_sites) !~ /ARRAY/i ) {
 	  $self->warn("Must provide a valid array reference to initialize neb_sites");
-      } else { 
+      } else {
 	  foreach my $s ( @$neb_sites ) {
 	      if( ref($s) !~ /ARRAY/i ) {
 		  $self->warn("need an array ref for each entry in the neb_sites object");
@@ -149,8 +149,8 @@ sub new {
 
   $self->num_site_classes($num_site_classes || 0);
   if( defined $dnds_classes ) {
-      if( ref($dnds_classes) !~ /HASH/i || 
-	  ! defined $dnds_classes->{'p'} || 
+      if( ref($dnds_classes) !~ /HASH/i ||
+	  ! defined $dnds_classes->{'p'} ||
 	  ! defined $dnds_classes->{'w'} ) {
 	  $self->warn("-dnds_site_classes expects a hashref with keys p and w");
       } else {
@@ -279,7 +279,7 @@ sub dnds_site_classes{
  Usage   : my @sites = $modelresult->get_pos_selected_sites();
  Function: Get the sites which PAML has identified as under positive
            selection (w > 1).  This returns an array with each slot
-           being a site, 4 values, 
+           being a site, 4 values,
            site location (in the original alignment)
            Amino acid    (I *think* in the first sequence)
            P             (P value)
@@ -301,7 +301,7 @@ sub get_pos_selected_sites{
  Function: Add a site to the list of positively selected sites
  Returns : count of the number of sites stored
  Args    : $site   - site number (in the alignment)
-           $aa     - amino acid under selection 
+           $aa     - amino acid under selection
            $pvalue - float from 0->1 represent probability site is under selection according to this model
            $signif - significance (coded as either empty, '*', or '**'
 
@@ -318,8 +318,8 @@ sub add_pos_selected_site{
  Title   : get_NEB_pos_selected_sites
  Usage   : my @sites = $modelresult->get_NEB_pos_selected_sites();
  Function: Get the sites which PAML has identified as under positive
-           selection (w > 1) using Naive Empirical Bayes.  
-           This returns an array with each slot being a site, 4 values, 
+           selection (w > 1) using Naive Empirical Bayes.
+           This returns an array with each slot being a site, 4 values,
            site location (in the original alignment)
            Amino acid    (I *think* in the first sequence)
            P             (P value)
@@ -342,7 +342,7 @@ sub get_NEB_pos_selected_sites{
  Function: Add a site to the list of positively selected sites
  Returns : count of the number of sites stored
  Args    : $site   - site number (in the alignment)
-           $aa     - amino acid under selection 
+           $aa     - amino acid under selection
            $pvalue - float from 0->1 represent probability site is under selection according to this model
            $signif - significance (coded as either empty, '*', or '**'
            $postmean - post mean for w
@@ -362,8 +362,8 @@ sub add_NEB_pos_selected_site{
  Title   : get_BEB_pos_selected_sites
  Usage   : my @sites = $modelresult->get_BEB_pos_selected_sites();
  Function: Get the sites which PAML has identified as under positive
-           selection (w > 1) using Bayes Empirical Bayes.  
-           This returns an array with each slot being a site, 6 values, 
+           selection (w > 1) using Bayes Empirical Bayes.
+           This returns an array with each slot being a site, 6 values,
            site location (in the original alignment)
            Amino acid    (I *think* in the first sequence)
            P             (P value)
@@ -386,7 +386,7 @@ sub get_BEB_pos_selected_sites{
  Function: Add a site to the list of positively selected sites
  Returns : count of the number of sites stored
  Args    : $site   - site number (in the alignment)
-           $aa     - amino acid under selection 
+           $aa     - amino acid under selection
            $pvalue - float from 0->1 represent probability site is under selection according to this model
            $signif - significance (coded as either empty, '*', or '**'
            $postmean - post mean for w
@@ -435,7 +435,7 @@ sub get_trees{
 
  Title   : rewind_tree_iterator
  Usage   : $result->rewind_tree_iterator()
- Function: Rewinds the tree iterator so that next_tree can be 
+ Function: Rewinds the tree iterator so that next_tree can be
            called again from the beginning
  Returns : none
  Args    : none
@@ -450,7 +450,7 @@ sub rewind_tree_iterator {
 
  Title   : add_tree
  Usage   : $result->add_tree($tree);
- Function: Adds a tree 
+ Function: Adds a tree
  Returns : integer which is the number of trees stored
  Args    : L<Bio::Tree::TreeI>
 
@@ -469,8 +469,8 @@ sub add_tree{
  Title   : shape_params
  Usage   : $obj->shape_params($newval)
  Function: Get/Set shape params for the distribution, 'alpha', 'beta'
-           which is a hashref 
-           with 1 keys, 'p' and 'q' 
+           which is a hashref
+           with 1 keys, 'p' and 'q'
  Returns : value of shape_params (a scalar)
  Args    : on set, new value (a scalar or undef, optional)
 

@@ -84,14 +84,14 @@ INCOMPLETE DOCUMENTATION OF ALL METHODS
 
 =cut
 
-BEGIN { 
+BEGIN {
 
     $MINNAMELEN = 25;
     $PROGRAMNAME = 'evolver' . ($^O =~ /mswin/i ?'.exe':'');
     if( defined $ENV{'PAMLDIR'} ) {
 	$PROGRAM = Bio::Root::IO->catfile($ENV{'PAMLDIR'},$PROGRAMNAME). ($^O =~ /mswin/i ?'.exe':'');;
     }
-   
+
     # valid values for parameters, the default one is always
     # the first one in the array
     # much of the documentation here is lifted directly from the MCcodon.dat
@@ -100,11 +100,11 @@ BEGIN {
     # Evolver calls time for seed: SetSeed(i==-1?(int)time(NULL):i);
     my $rand = int(time);
     #     my $rand = int(rand(999999));
-    %VALIDVALUES = 
-        ( 
+    %VALIDVALUES =
+        (
 
          # FIXME: there should be a 6-7-8 option that fits MCcodon or MCbase or MCaa
-         'outfmt'    => [0,1], 
+         'outfmt'    => [0,1],
          #     0           * 0:paml format (mc.paml); 1:paup format (mc.paup)
          # random number seed (odd number)
          # FIXME: set seed to null here and ask for it later?
@@ -172,7 +172,7 @@ sub program_dir {
 
  Title   : new
  Usage   : my $obj = Bio::Tools::Run::Phylo::PAML::Evolver->new();
- Function: Builds a new Bio::Tools::Run::Phylo::PAML::Evolver object 
+ Function: Builds a new Bio::Tools::Run::Phylo::PAML::Evolver object
  Returns : Bio::Tools::Run::Phylo::PAML::Evolver
            -save_tempfiles => boolean to save the generated tempfiles and
                               NOT cleanup after onesself (default FALSE)
@@ -198,7 +198,7 @@ sub new {
 
   $self->set_default_parameters();
   if( defined $params ) {
-      if( ref($params) !~ /HASH/i ) { 
+      if( ref($params) !~ /HASH/i ) {
 	  $self->warn("Must provide a valid hash ref for parameter -FLAGS");
       } else {
 	  map { $self->set_parameter($_, $$params{$_}) } keys %$params;
@@ -243,11 +243,11 @@ sub prepare {
    # FIXME: To consider: force phylip outfmt and split the files if
    # replicates > 1
 
-   #    if( ! ref($aln) && -e $aln ) { 
+   #    if( ! ref($aln) && -e $aln ) {
    #        $tempseqfile = $aln;
-   #    } else { 
+   #    } else {
    #        ($tempseqFH,$tempseqfile) = $self->io->tempfile
-   # 	   ('-dir' => $tempdir, 
+   # 	   ('-dir' => $tempdir,
    # 	    UNLINK => ($self->save_tempfiles ? 0 : 1));
    #        my $alnout = Bio::AlignIO->new('-format'      => 'phylip',
    # 				     '-fh'          => $tempseqFH,
@@ -255,13 +255,13 @@ sub prepare {
    #                                      '-idlength'    => $MINNAMELEN > $aln->maxdisplayname_length() ? $MINNAMELEN : $aln->maxdisplayname_length() +1);
    #        $alnout->write_aln($aln);
    #        $alnout->close();
-   #        undef $alnout;   
+   #        undef $alnout;
    #        close($tempseqFH);
    #    }
    # now let's print the MCcodon.dat file.
-   # many of the these programs are finicky about what the filename is 
+   # many of the these programs are finicky about what the filename is
    # and won't even run without the properly named file.  Ack
-   
+
    # FIXME: we should do the appropriate here if we are simulating codons, nts o aa.
    my $evolver_ctl = "$tempdir/MCcodon.dat";
    my $evolverfh;
@@ -305,7 +305,7 @@ sub prepare {
    # Silly printing the default codonfreqs in the default
    # MCcodon.dat provided by PAML
    unless (@codon_freqs) {
-       print $evolverfh 
+       print $evolverfh
        "0.00983798  0.01745548  0.00222048  0.01443315\n",
        "0.00844604  0.01498576  0.00190632  0.01239105\n",
        "0.01064012  0.01887870  0           0\n",
@@ -364,7 +364,7 @@ sub run {
         }
         # FIXME - hardcoded mc.paml
         unless ($self->indel) {
-            my $in  = Bio::AlignIO->new('-file'   => "$tmpdir/mc.paml", 
+            my $in  = Bio::AlignIO->new('-file'   => "$tmpdir/mc.paml",
                                         '-format' => 'phylip');
             my $aln = $in->next_aln();
             $self->alignment($aln);
@@ -409,10 +409,10 @@ sub error_string{
 sub alignment{
    my ($self,$aln) = @_;
 
-   if( defined $aln ) { 
-       if( -e $aln ) { 
+   if( defined $aln ) {
+       if( -e $aln ) {
 	   $self->{'_alignment'} = $aln;
-       } elsif( !ref($aln) || ! $aln->isa('Bio::Align::AlignI') ) { 
+       } elsif( !ref($aln) || ! $aln->isa('Bio::Align::AlignI') ) {
 	   $self->warn("Must specify a valid Bio::Align::AlignI object to the alignment function not $aln");
 	   return undef;
        } else {
@@ -428,7 +428,7 @@ sub alignment{
  Title   : tree
  Usage   : $evolver->tree($tree, %params);
  Function: Get/Set the L<Bio::Tree::TreeI> object
- Returns : L<Bio::Tree::TreeI> 
+ Returns : L<Bio::Tree::TreeI>
  Args    : [optional] $tree => L<Bio::Tree::TreeI>,
            [optional] %parameters => hash of tree-specific parameters:
                   branchLengths: 0, 1 or 2
@@ -442,8 +442,8 @@ sub alignment{
 
 sub tree {
    my ($self, $tree, %params) = @_;
-   if( defined $tree ) { 
-       if( ! ref($tree) || ! $tree->isa('Bio::Tree::TreeI') ) { 
+   if( defined $tree ) {
+       if( ! ref($tree) || ! $tree->isa('Bio::Tree::TreeI') ) {
 	   $self->warn("Must specify a valid Bio::Tree::TreeI object to the alignment function");
        }
        $self->{'_tree'} = $tree;
@@ -482,7 +482,7 @@ sub get_parameters{
  Title   : set_parameter
  Usage   : $evolver->set_parameter($param,$val);
  Function: Sets a evolver parameter, will be validated against
-           the valid values as set in the %VALIDVALUES class variable.  
+           the valid values as set in the %VALIDVALUES class variable.
            The checks can be ignored if one turns off param checks like this:
              $evolver->no_param_checks(1)
  Returns : boolean if set was success, if verbose is set to -1
@@ -496,13 +496,13 @@ sub get_parameters{
 sub set_parameter{
    my ($self,$param,$value) = @_;
    unless ($self->{'no_param_checks'} == 1) {
-       if ( ! defined $VALIDVALUES{$param} ) { 
+       if ( ! defined $VALIDVALUES{$param} ) {
            $self->warn("unknown parameter $param will not be set unless you force by setting no_param_checks to true");
            return 0;
-       } 
+       }
        if ( ref( $VALIDVALUES{$param}) =~ /ARRAY/i &&
             scalar @{$VALIDVALUES{$param}} > 0 ) {
-       
+
            unless ( grep { $value eq $_ } @{ $VALIDVALUES{$param} } ) {
                $self->warn("parameter $param specified value $value is not recognized, please see the documentation and the code for this module or set the no_param_checks to a true value");
                return 0;
@@ -518,7 +518,7 @@ sub set_parameter{
  Title   : set_default_parameters
  Usage   : $evolver->set_default_parameters(0);
  Function: (Re)set the default parameters from the defaults
-           (the first value in each array in the 
+           (the first value in each array in the
 	    %VALIDVALUES class variable)
  Returns : none
  Args    : boolean: keep existing parameter values
@@ -529,13 +529,13 @@ sub set_parameter{
 sub set_default_parameters{
    my ($self,$keepold) = @_;
    $keepold = 0 unless defined $keepold;
-   
+
    while( my ($param,$val) = each %VALIDVALUES ) {
        # skip if we want to keep old values and it is already set
        next if( defined $self->{'_evolverparams'}->{$param} && $keepold);
        if(ref($val)=~/ARRAY/i ) {
 	   $self->{'_evolverparams'}->{$param} = $val->[0];
-       }  else { 
+       }  else {
 	   $self->{'_evolverparams'}->{$param} = $val;
        }
    }
@@ -551,7 +551,7 @@ sub set_default_parameters{
  Title   : no_param_checks
  Usage   : $obj->no_param_checks($newval)
  Function: Boolean flag as to whether or not we should
-           trust the sanity checks for parameter values  
+           trust the sanity checks for parameter values
  Returns : value of no_param_checks
  Args    : newvalue (optional)
 
@@ -587,7 +587,7 @@ sub set_CodonFreqs{
 =method get_CodonFreqs
 
  Title   : get_CodonFreqs
- Usage   : my @codon_freqs = $evolver->get_CodonFreqs() 
+ Usage   : my @codon_freqs = $evolver->get_CodonFreqs()
  Function: Get the Codon freqs
  Returns : Array
  Args    : none
@@ -605,7 +605,7 @@ sub get_CodonFreqs{
 
  Title   : save_tempfiles
  Usage   : $obj->save_tempfiles($newval)
- Function: 
+ Function:
  Returns : value of save_tempfiles
  Args    : newvalue (optional)
 
@@ -676,7 +676,7 @@ sub DESTROY {
            Exploring the Relationship between Sequence Similarity and
            Accurate Phylogenetic Trees Brandi L. Cantarel, Hilary
            G. Morrison and William Pearson
- Example : 
+ Example :
  Returns : value of indel (a scalar)
  Args    : on set, new value (a scalar or undef, optional)
 

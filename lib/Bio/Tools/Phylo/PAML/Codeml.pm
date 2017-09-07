@@ -129,7 +129,7 @@ output...
 
  Title   : new
  Usage   : my $obj = new Bio::Tools::Phylo::PAML::Codeml();
- Function: Builds a new Bio::Tools::Phylo::PAML::Codeml object 
+ Function: Builds a new Bio::Tools::Phylo::PAML::Codeml object
  Returns : Bio::Tools::Phylo::PAML::Codeml
  Args    :
 
@@ -166,7 +166,7 @@ sub get_trees{
 
  Title   : get_statistics
  Usage   : my $data = $codemlparser->get_statistics
- Function: Retrieves the set of pairwise comparisons 
+ Function: Retrieves the set of pairwise comparisons
  Returns : Hash Reference keyed as 'seqname' -> 'seqname' -> 'datatype'
  Args    : none
 
@@ -175,7 +175,7 @@ sub get_trees{
 
 sub get_statistics {
    my ($self) = @_;
-   
+
 
 }
 
@@ -189,10 +189,10 @@ sub _parse_mlc {
 	print;
 	# Aaron this is where the parsing should begin
 
-	# I'll do the Tree objects if you like - 
+	# I'll do the Tree objects if you like -
 	# I'd do it by building an IO::String for the
-	# the tree data 
-	# or does it make more sense to parse this out of a collection of 
+	# the tree data
+	# or does it make more sense to parse this out of a collection of
 	# files?
 	if( /^TREE/ ) {
 	    # ...
