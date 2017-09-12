@@ -4,6 +4,11 @@ use utf8;
 use strict;
 use warnings;
 
+use Getopt::Long;
+
+use Bio::Align::Utilities qw(aa_to_dna_aln);
+use Bio::AlignIO;
+use Bio::SeqIO;
 use Bio::Tools::Run::Alignment::Clustalw;
 use Bio::Tools::Run::Alignment::TCoffee;
 use Bio::Tools::Run::Phylo::PAML::Codeml;
@@ -32,16 +37,6 @@ bp_pairwise_kaks.PLS -i t/data/worm_fam_2785.cdna [-f fasta/genbank/embl...] [-m
  do not rely it on for every situation.
 
 =cut
-
-# for projecting alignments from protein to R/DNA space
-use Bio::Align::Utilities qw(aa_to_dna_aln);
-
-# for input of the sequence data
-use Bio::SeqIO;
-use Bio::AlignIO;
-
-# for the command line argument parsing
-use Getopt::Long;
 
 my ($aln_prog, $kaks_prog,$format, $output,
     $cdna,$verbose,$help) = qw(clustalw codeml fasta);
