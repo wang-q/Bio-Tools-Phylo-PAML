@@ -4,6 +4,11 @@ use utf8;
 use strict;
 use warnings;
 
+use Bio::Tools::Run::Alignment::Clustalw;
+use Bio::Tools::Run::Alignment::TCoffee;
+use Bio::Tools::Run::Phylo::PAML::Codeml;
+use Bio::Tools::Run::Phylo::PAML::Yn00;
+
 # PODNAME: bp_pairwise_kaks
 # ABSTRACT: calculate pairwise Ka,Ks for a set of sequences
 # AUTHOR: Jason Stajich <jason@bioperl.org>
@@ -22,29 +27,12 @@ bp_pairwise_kaks.PLS -i t/data/worm_fam_2785.cdna [-f fasta/genbank/embl...] [-m
  (non-synonymous) and Ks (synonymous) substitutions based on the ML
  method of Yang with the PAML package.
 
- Requires:
- * bioperl-run package
- * PAML program codeml or yn00
- * Multiple sequence alignment programs Clustalw OR T-Coffee
-
  Often there are specific specific parameters you want to run when you
  a computing Ka/Ks ratios so consider this script a starting point and
  do not rely it on for every situation.
 
 =cut
 
-eval {
-    # Ka/Ks estimators
-    require Bio::Tools::Run::Phylo::PAML::Codeml;
-    require Bio::Tools::Run::Phylo::PAML::Yn00;
-
-    # Multiple Sequence Alignment programs
-    require Bio::Tools::Run::Alignment::Clustalw;
-    require Bio::Tools::Run::Alignment::TCoffee;
-};
-if( $@ ) {
-    die("Must have bioperl-run pkg installed to run this script");
-}
 # for projecting alignments from protein to R/DNA space
 use Bio::Align::Utilities qw(aa_to_dna_aln);
 
