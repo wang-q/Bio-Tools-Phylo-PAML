@@ -22,24 +22,71 @@ use Bio::Tools::Run::Phylo::PAML::Yn00;
 
 =head1 SYNOPSIS
 
-bp_pairwise_kaks.PLS -i t/data/worm_fam_2785.cdna [-f fasta/genbank/embl...] [-msa tcoffee/clustal] [-kaks yn00/codeml]
+bp_pairwise_kaks.PLS -i INPUT-cDNA [-f FORMAT] [-o OUTPUT] \
+    [--msa tcoffee|clustal] [--kaks yn00|codeml]
 
 =head1 DESCRIPTION
 
-  This script will take as input a dataset of cDNA sequences verify
- that they contain no stop codons, align them in protein space,
- project the alignment back into cDNA and estimate the Ka
- (non-synonymous) and Ks (synonymous) substitutions based on the ML
- method of Yang with the PAML package.
+This script will take as input a dataset of cDNA sequences, verify
+that they contain no stop codons, align them in protein space, project
+the alignment back into cDNA, and estimate the Ka (non-synonymous) and
+Ks (synonymous) substitutions based on the Maximum Likelihood method
+of Yang with the PAML package.
 
- Often there are specific specific parameters you want to run when you
- a computing Ka/Ks ratios so consider this script a starting point and
- do not rely it on for every situation.
+Often there are specific specific parameters you want to run when you
+are computing Ka/Ks ratios so consider this script a starting point
+and do not rely it on for every situation.
+
+=head1 OPTIONS
+
+=begin :list
+
+= B<-i>, B<--input>
+
+The input file with the cDNA sequences.  Must have at least two
+sequences, and be in a format that L<Bio::SeqIO> is capable to read.
+In addition, if Bio::SeqIO is inable to automatically identify the
+format, the B<-f> option should be specified.
+
+Technically not an option, this is a required value.
+
+= B<-f>, B<--format>
+
+Specify the format of INPUT-cDNA for L<Bio::SeqIO>.
+
+= B<-o>, B<--output>
+
+Specify the file for output.  Defaults to STDOUT.
+
+= B<--msa>
+
+Program used for alignment, either clustalw or tcoffee.  Defaults to
+clustalw.
+
+= B<--kaks>
+
+Program used for the Ka/Ks estimation, either codeml or yn00.
+Defaults to codeml.
+
+= B<-v>, B<--verbose>
+
+Be verbose.
+
+= B<-h>, B<--help>
+
+Print help text.
+
+=end :list
 
 =cut
 
-my ($aln_prog, $kaks_prog,$format, $output,
-    $cdna,$verbose,$help) = qw(clustalw codeml fasta);
+my $aln_prog = "clustalw";
+my $kaks_prog = "codeml";
+my $format = "fasta";
+my $output;
+my $cdna;
+my $verbose;
+my $help;
 
 GetOptions(
            'i|input:s'      => \$cdna,
