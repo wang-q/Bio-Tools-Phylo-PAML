@@ -2,6 +2,10 @@ Summary of important user-visible changes for Bio-Tools-Phylo-PAML
 ------------------------------------------------------------------
 
 {{$NEXT}}
+  * Bio::Installer::PAML has been removed.  Not only did it no longer
+    work, it was also unsecure.  Either install PAML via your system
+    package manager, or download it from upstream, currently at
+    http://abacus.gene.ucl.ac.uk/software/paml.html
 
 1.7.2     2017-09-11 19:11:43+01:00 Europe/London
   * First release after split from bioperl-live and bioperl-run.
