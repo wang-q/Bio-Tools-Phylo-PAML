@@ -252,6 +252,17 @@ sub next_result {
     $self->_parse_summary
       unless ( $self->{'_summary'} && !$self->{'_summary'}->{'multidata'} );
 
+    ## parse_summary reads the NG distance matrices which in the case
+    ## of codeml and yn00 appear at the end of the file.  This means
+    ## that for those programs, there's nothing left to read, so all
+    ## the code below is skipped, and we will return undef.  Maybe in
+    ## older versions of PAML (current version 4.9h) the order of
+    ## output was different.  Or maybe someone made parse_summary read
+    ## more stuff and didn't notice that next_result was here.
+    ## Anyway, rewinding to the start of the file after summary seems
+    ## to fix all the issues.
+    seek $self->_fh, 0, 0;
+
     # OK, depending on seqtype and runmode now, one of a few things can happen:
     my $seqtype = $self->{'_summary'}->{'seqtype'};
     if ( $seqtype eq 'CODONML' || $seqtype eq 'AAML' ) {
@@ -400,11 +411,6 @@ sub next_result {
         }
     }
     elsif ( $seqtype eq 'YN00' ) {
-        ## At least with yn00 versions 4.8 and 4.9, this values appear
-        ## before the distance matrix.  However, the distance matrix
-        ## was read during the summary much before so we need to
-        ## rewind the file.
-        seek $self->_fh, 0, 0;
         while ( $_ = $self->_readline ) {
             if (
 m/^Estimation by the method|\(B\) Yang & Nielsen \(2000\) method/
