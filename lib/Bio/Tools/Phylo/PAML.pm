@@ -400,6 +400,11 @@ sub next_result {
         }
     }
     elsif ( $seqtype eq 'YN00' ) {
+        ## At least with yn00 versions 4.8 and 4.9, this values appear
+        ## before the distance matrix.  However, the distance matrix
+        ## was read during the summary much before so we need to
+        ## rewind the file.
+        seek $self->_fh, 0, 0;
         while ( $_ = $self->_readline ) {
             if (
 m/^Estimation by the method|\(B\) Yang & Nielsen \(2000\) method/
