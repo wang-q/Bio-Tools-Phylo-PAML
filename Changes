@@ -2,6 +2,8 @@ Summary of important user-visible changes for Bio-Tools-Phylo-PAML
 ------------------------------------------------------------------
 
 {{$NEXT}}
+
+1.7.3     2018-07-01 13:35:29+01:00 Europe/London
   * Bio::Installer::PAML has been removed.  Not only did it no longer
     work, it was also unsecure.  Either install PAML via your system
     package manager, or download it from upstream, currently at
