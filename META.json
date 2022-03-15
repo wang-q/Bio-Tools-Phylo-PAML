@@ -1,0 +1,108 @@
+{
+   "abstract" : "Parses output from the PAML programs codeml, baseml, basemlg, codemlsites and yn00",
+   "author" : [
+      "AUTHOR: Jason Stajich <jason@bioperl.org>"
+   ],
+   "dynamic_config" : 0,
+   "generated_by" : "Minilla/v3.1.16, CPAN::Meta::Converter version 2.150010",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : 2
+   },
+   "name" : "Bio-Tools-Phylo-PAML",
+   "no_index" : {
+      "directory" : [
+         "t",
+         "xt",
+         "inc",
+         "share",
+         "eg",
+         "examples",
+         "author",
+         "builder"
+      ]
+   },
+   "prereqs" : {
+      "configure" : {
+         "requires" : {
+            "Module::Build::Tiny" : "0.035"
+         }
+      },
+      "develop" : {
+         "requires" : {
+            "Test::CPAN::Meta" : "0",
+            "Test::MinimumVersion::Fast" : "0.04",
+            "Test::PAUSE::Permissions" : "0.07",
+            "Test::Pod" : "1.41",
+            "Test::Spellunker" : "v0.2.7"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "Bio::AlignIO" : "0",
+            "Bio::LocatableSeq" : "0",
+            "Bio::Matrix::PhylipDist" : "0",
+            "Bio::PrimarySeq" : "0",
+            "Bio::Root::Root" : "0",
+            "Bio::Tools::Run::Alignment::Clustalw" : "0",
+            "Bio::Tools::Run::WrapperBase" : "0",
+            "Bio::TreeIO" : "0",
+            "File::Spec" : "0",
+            "IO::String" : "0",
+            "IPC::Open3" : "0",
+            "perl" : "5.010000"
+         }
+      },
+      "test" : {
+         "requires" : {
+            "IO::Handle" : "0",
+            "Test::More" : "0"
+         }
+      }
+   },
+   "release_status" : "unstable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/wang-q/Bio-Tools-Phylo-PAML/issues"
+      },
+      "homepage" : "https://github.com/wang-q/Bio-Tools-Phylo-PAML",
+      "repository" : {
+         "type" : "git",
+         "url" : "https://github.com/wang-q/Bio-Tools-Phylo-PAML.git",
+         "web" : "https://github.com/wang-q/Bio-Tools-Phylo-PAML"
+      }
+   },
+   "version" : "1.7.3",
+   "x_contributors" : [
+      "Benjamin Vaisvil <benjamini@gmail.com>",
+      "Brian Osborne <briano@bioteam.net>",
+      "Carnë Draug <carandraug+dev@gmail.com>",
+      "Chris Fields <cjfields@bioperl.org>",
+      "Dave Messina <online@davemessina.com>",
+      "Robert Buels <rmb32@cornell.edu>",
+      "amackey <amackey@bioperl.org>",
+      "avilella <avilella@bioperl.org>",
+      "birney <birney@bioperl.org>",
+      "bosborne <bosborne@bioperl.org>",
+      "daisieh_local <daisieh@gmail.com>",
+      "dave_messina <dave_messina@bioperl.org>",
+      "fangly <fangly@bioperl.org>",
+      "heikki <heikki@bioperl.org>",
+      "jerm <jerm@localhost>",
+      "lapp <lapp@bioperl.org>",
+      "maj <maj@bioperl.org>",
+      "mauricio <mauricio@bioperl.org>",
+      "nathan <nathan@bioperl.org>",
+      "peter <peter@bioperl.org>",
+      "sendu <sendu@bioperl.org>",
+      "shawnh <shawnh@bioperl.org>",
+      "skirov <skirov@bioperl.org>",
+      "tseemann <tseemann@bioperl.org>",
+      "wang-q <wang-q@outlook.com>"
+   ],
+   "x_serialization_backend" : "JSON::PP version 4.04",
+   "x_static_install" : 1
+}

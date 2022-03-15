@@ -8,3 +8,11 @@ Bio-Tools-Phylo-PAML-*
 # ignore text editors stuff
 .emacs.*
 *.komodoproject
+/Bio-Tools-Phylo-PAML-*
+/.build
+/_build_params
+/Build
+/Build.bat
+!Build/
+!META.json
+!LICENSE

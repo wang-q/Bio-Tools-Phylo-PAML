@@ -17,6 +17,8 @@ use Bio::PrimarySeq;
 use Bio::Matrix::PhylipDist;
 use Bio::Tools::Phylo::PAML::ModelResult;
 
+our $VERSION = "1.7.3";
+
 # ABSTRACT: Parses output from the PAML programs codeml, baseml, basemlg, codemlsites and yn00
 # AUTHOR: Jason Stajich <jason@bioperl.org>
 # AUTHOR: Aaron Mackey <amackey@virginia.edu>
@@ -1860,5 +1862,24 @@ sub _parse_rst {
     $self->{'_rst'}->{'trees'} = \@trees;
     return;
 }
+
+=head1 AUTHOR
+
+AUTHOR: Jason Stajich <jason@bioperl.org>
+AUTHOR: Aaron Mackey <amackey@virginia.edu>
+OWNER: Jason Stajich <jason@bioperl.org>
+OWNER: Aaron Mackey <amackey@virginia.edu>
+
+AUTHOR: Albert Vilella <avilella@gmail.com>
+AUTHOR: Sendu Bala <bix@sendu.me.uk>
+AUTHOR: Dave Messina <dmessina@cpan.org>
+
+=head1 LICENSE
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=cut
+
 
 1;
