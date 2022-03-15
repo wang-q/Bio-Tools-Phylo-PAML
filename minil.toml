@@ -1,0 +1,4 @@
+author = "Jason Stajich <jason@bioperl.org>"
+license = "Perl_5"
+name = "Bio-Tools-Phylo-PAML"
+version = "1.7.3"
